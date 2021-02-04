@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.spacing(2),
   },
   home: {
     marginRight: "auto",
