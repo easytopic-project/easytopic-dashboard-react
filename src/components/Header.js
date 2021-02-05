@@ -1,5 +1,6 @@
-import { AppBar, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Button, makeStyles, Toolbar, Typography } from "@material-ui/core";
 import { Link } from 'react-router-dom';
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +16,10 @@ export default function Header({ children }) {
 
   const classes = useStyles();
 
+  const { toggleTheme } = useGlobalContext();
+
+  
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -24,6 +29,7 @@ export default function Header({ children }) {
               {children}
             </Typography>
           </Link>
+          <Button onClick={toggleTheme}>Theme</Button>
         </Toolbar>
       </AppBar>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { makeStyles, FormControl, InputLabel, Select, MenuItem, Typography, Box } from '@material-ui/core'
+import MainForm from '../../components/MainForm';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -16,7 +17,7 @@ export default function Aside() {
 
   const classes = useStyle();
 
-  const [pipeline, setPipeline] = useState(null)
+  const [pipeline, setPipeline] = useState(1);
 
   function handleSelectChange(event) {
     setPipeline(event.target.value);
@@ -39,9 +40,7 @@ export default function Aside() {
         </Select>
       </FormControl>
 
-      {pipeline === 1 ? <Typography>1</Typography> : null}
-      {pipeline === 2 ? <Typography>2</Typography> : null}
-      {pipeline === 3 ? <Typography>3</Typography> : null}
+      <MainForm />
 
     </div>
   );

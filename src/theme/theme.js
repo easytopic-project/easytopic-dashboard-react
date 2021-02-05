@@ -1,10 +1,13 @@
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
 // color palette: https://colorhunt.co/palette/167893
 
 export default function Theme({ children }) {
 
-  const darkMode = false;
+  const {darkMode} = useGlobalContext(); 
+
+  console.log(darkMode);
 
   const theme = createMuiTheme({
     palette: {
