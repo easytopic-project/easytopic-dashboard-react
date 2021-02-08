@@ -26,9 +26,9 @@ export default function SlideInput({ children, onChange, id }) {
 
   const [filled, setFilled] = useState(false);
 
-  function handleInside() {
+  function handleInside(event) {
     setFilled(true);
-    onChange();
+    onChange(event);
   }
 
   return (

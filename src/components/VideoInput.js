@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SlideInput({ children, onChange, id }) {
+export default function VideoInput({ children, onChange, id }) {
 
   const classes = useStyles();
 

@@ -20,15 +20,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SlideInput({ children, onChange, id }) {
+export default function TextInput({ children, onChange, id }) {
 
   const classes = useStyles();
 
   const [filled, setFilled] = useState(false);
 
-  function handleInside() {
+  function handleInside(event) {
     setFilled(true);
-    onChange();
+    onChange(event);
   }
 
   return (

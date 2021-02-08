@@ -7,8 +7,6 @@ export default function Theme({ children }) {
 
   const {darkMode} = useGlobalContext(); 
 
-  console.log(darkMode);
-
   const theme = createMuiTheme({
     palette: {
       type: darkMode ? 'dark' : 'light',

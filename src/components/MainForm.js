@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function MainForm() {
+export default function MainForm(props) {
 
   const classes = useStyles();
 
@@ -24,20 +24,28 @@ export default function MainForm() {
 
 
   function onSubmit(event) {
+    // usar FormData e usar a API para postar os arquivos
     console.log(event.target);
     event.preventDefault();
   };
 
   function handleVideoChange(event) {
     setVideo(event.target.files[0]);
-    console.log(event.target);
+  };
+
+  function handleTextChange(event) {
+    setText(event.target.files[0]);
+  };
+
+  function handleSlideChange(event) {
+    setSlide(event.target.files[0]);
   };
 
   return (
     <form id="main-form" onSubmit={onSubmit} className={classes.form}>
-      <VideoInput id="video-file" onChange={handleVideoChange}>Vídeo</VideoInput >
-      <TextInput onChange={()=> console.log("text works")} id="text-file" >Texto</TextInput>
-      <SlideInput onChange={()=> console.log("slide works")} id="slide-file">Slide</SlideInput>      
+      <VideoInput id="video-file" onChange={handleVideoChange}>Vídeo</VideoInput>
+      <TextInput id="text-file" onChange={handleTextChange}>Texto</TextInput>
+      <SlideInput id="slide-file" onChange={handleSlideChange}>Slide</SlideInput>      
       
       <Button type="submit" form="main-form" variant="contained" color="primary">
         Enviar

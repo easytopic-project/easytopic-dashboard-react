@@ -19,6 +19,8 @@ export default function Aside() {
 
   const [pipeline, setPipeline] = useState(1);
 
+  // Checar pipelines disponiveis e exibir condicionalmente passando como props para MainForm
+  
   function handleSelectChange(event) {
     setPipeline(event.target.value);
   };
