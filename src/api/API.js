@@ -16,6 +16,10 @@ export default class API {
   };
   // Definir metodos para conversar com a api
 
+  static async waitTimeout(time = 2000) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
+
   static async postForm() {
     // Postar o formulario de arquivos 
   }
@@ -32,7 +36,11 @@ export default class API {
     return await this.axios.post(this.urls.fileServer, file);
   }
 
-  static async postJob(obj) {
+  static async deleteFile(file){
+    return await this.axios.delete(`${this.urls.fileServer}/${file.name}`, file);
+  }
+
+  static async postOcrJob(obj) {
     const data = {
       "file": obj,
     }
@@ -40,6 +48,8 @@ export default class API {
   }
 
   static async getOcrJob(id) {
-    return await this.axios.get(`${this.urls.pipeline}/${id}`);
+    const [res] = await Promise.all([this.axios.get(`${this.urls.pipeline}/${id}`), this.waitTimeout()]);
+    console.log(res);
+    return res;
   }
 }
