@@ -4,3 +4,4 @@ export { default as SlideInput } from './SlideInput';
 export { default as TextInput } from './TextInput';
 export { default as VideoInput } from './VideoInput';
 export { default as ImageInput } from './ImageInput';
+export { default as GenericInput } from './GenericInput';

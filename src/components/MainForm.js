@@ -1,6 +1,6 @@
 import { TextField, Button, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react'
-import { VideoInput, TextInput, SlideInput, ImageInput } from '.';
+import { VideoInput, TextInput, SlideInput, ImageInput, GenericInput } from '.';
 import API from '../api/API';
 import { useGlobalContext } from '../contexts/GlobalContext';
 
@@ -29,11 +29,11 @@ export default function MainForm(props) {
 
 
   function onSubmit(event) {
-    // usar FormData e usar a API para postar os arquivos
+
     console.log(event.target);
     event.preventDefault();
 
-    API.postJob(image).then((res) => {
+    API.postOcrJob(image).then((res) => {
       setRunning(true);
       setProcessData(res.data);
       console.log(res.data);
@@ -69,6 +69,7 @@ export default function MainForm(props) {
   <SlideInput id="slide-file" onChange={handleSlideChange}>Slide</SlideInput>*/}
 
       <ImageInput image={image} id="slide-file" onChange={handleImageChange}>Imagem</ImageInput>
+      <GenericInput icon="AttachFileIcon" id="generic" onChange={() => { alert("generic") }}>Genérico</GenericInput>
       
       <Button type="submit" form="main-form" variant="contained" color="primary">
         Enviar
