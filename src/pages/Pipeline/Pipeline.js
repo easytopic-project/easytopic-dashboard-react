@@ -21,8 +21,10 @@ export default function Pipeline() {
         <Grid item xs={4} >
           <Aside />
         </Grid>
-        
-        <Grid item xs={8}>
+        <Grid item>
+          <Divider orientation="vertical" item xs={1}/>
+        </Grid>
+        <Grid item xs>
           <MainPage />
         </Grid>
       </Grid>

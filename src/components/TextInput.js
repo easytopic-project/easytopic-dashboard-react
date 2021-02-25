@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { makeStyles, IconButton, Button, Typography } from "@material-ui/core";
+import { makeStyles, IconButton, Button, Typography, TextField, Tooltip } from "@material-ui/core";
 import DescriptionIcon from '@material-ui/icons/Description';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { useGlobalContext } from '../contexts/GlobalContext';
 
 const useStyles = makeStyles((theme) => ({
   input: {
-    display: "none",
+    display: "flex",
   },
   button: {
     minWidth: "200px",
@@ -20,27 +21,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TextInput({ children, onChange, id }) {
+export default function TextInput({ field }) {
 
   const classes = useStyles();
 
-  const [filled, setFilled] = useState(false);
+  const {inputObj, setinputObj} = useGlobalContext();
 
-  function handleInside(event) {
-    setFilled(true);
-    onChange(event);
+  function handleInputChange(event) {
+    setinputObj({...inputObj, [field.id]: event.target.value})
   }
 
   return (
     <>
-      <input accept=".txt, .srt, .doc" className={classes.input} id={id} type="file" onChange={handleInside}/>
-      <label htmlFor={id}>
-        <Button className={classes.button} color="primary" aria-label="upload text" component="span" variant="contained">
-          <DescriptionIcon />
-          {children}
-          <CheckCircleIcon className={filled ? classes.checkOn : classes.checkOff}/>
-        </Button>
-      </label>
+      <Tooltip title={field.description}>
+      <TextField
+          id={field.id}
+          label={field.name}
+          placeholder={field.name}
+          multiline
+          variant="outlined"
+          onChange={handleInputChange}
+          required={field.required}
+        />
+      </Tooltip>
+        
     </>
   );
 }

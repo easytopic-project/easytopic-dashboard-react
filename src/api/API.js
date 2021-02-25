@@ -12,7 +12,7 @@ export default class API {
 
   static urls = {
     fileServer: "http://localhost:3001/files",
-    pipeline: "http://localhost:3000/pipeline",
+    pipeline: "http://localhost:8080/pipeline",
   };
   // Definir metodos para conversar com a api
 
@@ -25,7 +25,7 @@ export default class API {
   }
 
   static async getPipelines() {
-    // Receber lista de pipelines disponíveis (?)
+    return await this.axios.get(`${this.urls.pipeline}/options`)
   }
 
   static async getStatus() {
@@ -36,15 +36,13 @@ export default class API {
     return await this.axios.post(this.urls.fileServer, file);
   }
 
-  static async deleteFile(file){
+  static async deleteFile(file) {
     return await this.axios.delete(`${this.urls.fileServer}/${file.name}`, file);
   }
 
-  static async postOcrJob(obj) {
-    const data = {
-      "file": obj,
-    }
-    return await this.axios.post(`${this.urls.pipeline}/ocr`, data);
+  static async postOcrJob(obj, route) {
+    console.log(obj);
+    return await this.axios.post(`${this.urls.pipeline}/${route}`, obj);
   }
 
   static async getOcrJob(id) {

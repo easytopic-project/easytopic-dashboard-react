@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { makeStyles, Typography } from '@material-ui/core'
+import { makeStyles, Typography, Box, Card, CardContent } from '@material-ui/core'
 import { useGlobalContext } from '../../contexts/GlobalContext';
 import API from '../../api/API';
 
@@ -7,22 +7,23 @@ import API from '../../api/API';
 const useStyle = makeStyles((theme) => ({
   root: {
     height: "100%",
-    textAlign: "center",
   },
   results : {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
     alignItems: "center",
-    height: "50%",
-    marginTop: theme.spacing(10),
+    height: "100%",
+    margin: theme.spacing(5),
   },
+  resultCard: {
+    marginBottom : theme.spacing(3),
+  }
 }));
 
 export default function MainPage() {
 
   const classes = useStyle();
-  const { setRunning, running, processData, setProcessData } = useGlobalContext();
+  const { setRunning, running, processData, setProcessData, pipeline } = useGlobalContext();
 
   useEffect(() => {
     if (running && processData.status !== "done") {
@@ -37,9 +38,19 @@ export default function MainPage() {
   return (
     <div className={classes.root}>
       <div className={classes.results}>
-      {!running && !processData.response ? <Typography>Envie o arquivo em que deseja aplicar o OCR</Typography> : null }
-      {running ? <Typography>Loading...</Typography> : null}
-      {processData.response ? <Typography>{processData.response.ocr}</Typography> : null }
+      {(!running && !processData.response) ? <Typography variant="h4">{pipeline.description}</Typography> : null }
+      {running ? <Typography variant="h4">Loading...</Typography> : null}
+      {processData.output ? pipeline.output.map((value, i) => {
+        return (
+          <Card className={classes.resultCard} key={value.id}>
+            <CardContent>
+            <Typography variant="h4">{value.name}</Typography>
+            <Typography variant="h5">{value.description}</Typography>
+            <Typography>{processData.output[value.id]}</Typography>
+            </CardContent>
+          </Card>
+        );
+      }) : null }
       </div>
     </div>
   );
