@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles, FormControl, InputLabel, Select, MenuItem, Typography, Box } from '@material-ui/core'
+import { makeStyles, FormControl, InputLabel, Select, MenuItem,  } from '@material-ui/core'
 import MainForm from '../../components/MainForm';
 import API from '../../api/API';
 import { useGlobalContext } from '../../contexts/GlobalContext';
@@ -20,19 +20,19 @@ export default function Aside() {
   const classes = useStyle();
 
   const { pipeline, setPipeline } = useGlobalContext();
-  const [options, setOptions] = useState([]);
-  
+  const [pipelineOptions, setPipelineOptions] = useState([]);
+
+  useEffect(() => {
+    API.getPipelines().then((res) => setPipelineOptions(res.data));
+  },[]);
+
   function handleSelectChange(event) {
     setPipeline(event.target.value);
   };
 
-  useEffect(() => {
-    API.getPipelines().then((res) => setOptions(res.data));
-  },[]);
-
   return (
     <div className={classes.root}>
-      {console.log(options)}
+      {console.log(pipelineOptions)}
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="pipeline-select-label">Pipeline</InputLabel>
         <Select
@@ -42,7 +42,7 @@ export default function Aside() {
           onChange={handleSelectChange}
           label="Pipeline"
         >
-          {options.map((option) => 
+          {pipelineOptions.map((option) => 
             <MenuItem key={option.id} value={option}>{option.name}</MenuItem>
           )}
 

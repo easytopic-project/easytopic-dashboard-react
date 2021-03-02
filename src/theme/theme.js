@@ -1,4 +1,5 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+// Alterar para versão estavel de createMuiTheme apos producao (erros no strictmode na versao estavel)
+import { unstable_createMuiStrictModeTheme as createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { useGlobalContext } from '../contexts/GlobalContext';
 
 // color palette: https://colorhunt.co/palette/167893

@@ -37,7 +37,7 @@ export default function MainForm({pipeline}) {
   return (
     <form id="main-form" onSubmit={onSubmit} className={classes.form}>
       
-      {pipeline.input.map((field, i) => {
+      {pipeline.input && pipeline.input.map((field, i) => {
         if (field.type == "file")
           return <GenericInput key={field.id} field={field} />
         if (field.type == "text")

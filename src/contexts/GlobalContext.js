@@ -8,22 +8,20 @@ export default function GlobalContextProvider({ children }) {
   const [running, setRunning] = useState(false);
   const [processData, setProcessData] = useState({});
   const [pipeline, setPipeline] = useState({
-    "version": "",
-    "id": "",
-    "name": "Escolha um pipeline",
-    "description": "Escolha um pipeline",
-    "input": [],
-    "output": [],
+    version: "",
+    id: "",
+    name: "",
+    description: "",
+    input: [],
+    output: [],
   });
   const [inputObj, setinputObj] = useState({})
-
-  console.log(inputObj);
 
   function toggleTheme() {
     setDarkMode(!darkMode);
   };
 
-  // quick fix, repair later
+  // quick fix, repair later (?)
   useEffect(() => {
     setRunning(false);
     setProcessData({});

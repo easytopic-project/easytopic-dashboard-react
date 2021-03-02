@@ -1,7 +1,7 @@
 import { Divider, Grid, makeStyles } from '@material-ui/core'
 import React from 'react';
-import Aside from './Aside';
-import MainPage from './MainPage';
+import PipelineAside from './PipelineAside';
+import PipelineMain from './PipelineMain';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -19,13 +19,13 @@ export default function Pipeline() {
   return (
       <Grid container direction="row" className={classes.container}>
         <Grid item xs={4} >
-          <Aside />
+          <PipelineAside />
         </Grid>
-        <Grid item>
-          <Divider orientation="vertical" item xs={1}/>
+        <Grid item >
+          <Divider orientation="vertical"/>
         </Grid>
         <Grid item xs>
-          <MainPage />
+          <PipelineMain />
         </Grid>
       </Grid>
   );

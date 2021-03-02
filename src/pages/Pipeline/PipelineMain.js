@@ -20,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-export default function MainPage() {
+export default function PipelineMain() {
 
   const classes = useStyle();
   const { setRunning, running, processData, setProcessData, pipeline } = useGlobalContext();
