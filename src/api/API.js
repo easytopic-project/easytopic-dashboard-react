@@ -40,12 +40,12 @@ export default class API {
     return await this.axios.delete(`${this.urls.fileServer}/${file.name}`, file);
   }
 
-  static async postOcrJob(obj, route) {
+  static async postJob(obj, route) {
     console.log(obj);
     return await this.axios.post(`${this.urls.pipeline}/${route}`, obj);
   }
 
-  static async getOcrJob(id) {
+  static async getJob(id) {
     const [res] = await Promise.all([this.axios.get(`${this.urls.pipeline}/${id}`), this.waitTimeout()]);
     console.log(res);
     return res;

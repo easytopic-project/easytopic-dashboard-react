@@ -32,7 +32,6 @@ export default function Aside() {
 
   return (
     <div className={classes.root}>
-      {console.log(pipelineOptions)}
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="pipeline-select-label">Pipeline</InputLabel>
         <Select

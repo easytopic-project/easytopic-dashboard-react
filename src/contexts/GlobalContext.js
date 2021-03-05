@@ -7,25 +7,16 @@ export default function GlobalContextProvider({ children }) {
   const [darkMode, setDarkMode] = useState(false);
   const [running, setRunning] = useState(false);
   const [processData, setProcessData] = useState({});
-  const [pipeline, setPipeline] = useState({
-    version: "",
-    id: "",
-    name: "",
-    description: "",
-    input: [],
-    output: [],
-  });
+  const [pipeline, setPipeline] = useState("");
   const [inputObj, setinputObj] = useState({})
 
   function toggleTheme() {
     setDarkMode(!darkMode);
   };
 
-  // quick fix, repair later (?)
   useEffect(() => {
     setRunning(false);
     setProcessData({});
-    console.log("running false");
   },[pipeline])
 
   return (

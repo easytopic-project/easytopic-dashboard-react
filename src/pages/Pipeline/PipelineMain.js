@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { makeStyles, Typography, Box, Card, CardContent } from '@material-ui/core'
+import { makeStyles, Typography, Card, CardContent } from '@material-ui/core'
 import { useGlobalContext } from '../../contexts/GlobalContext';
 import API from '../../api/API';
 
@@ -27,7 +27,7 @@ export default function PipelineMain() {
 
   useEffect(() => {
     if (running && processData.status !== "done") {
-      API.getOcrJob(processData.id).then(res => {
+      API.getJob(processData.id).then(res => {
         setProcessData(res.data);
         if (res.data.response)
           setRunning(false);
