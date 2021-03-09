@@ -7,20 +7,24 @@ import { useGlobalContext } from '../contexts/GlobalContext';
 
 const useStyles = makeStyles((theme) => ({
   form : {
+    "& > *": {
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
+    },
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+
     alignItems: "center",
     height: "50%",
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(5),
   },
 
 }));
 
-export default function MainForm({pipeline}) {
+export default function MainForm() {
 
   const classes = useStyles();
-  const {setRunning, setProcessData, inputObj, setinputObj} = useGlobalContext();
+  const {setRunning, setProcessData, inputObj, setinputObj, pipeline} = useGlobalContext();
 
   function onSubmit(event) {
 

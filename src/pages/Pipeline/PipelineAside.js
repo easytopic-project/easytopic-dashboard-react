@@ -32,7 +32,7 @@ export default function Aside() {
 
   return (
     <div className={classes.root}>
-      <FormControl variant="outlined" className={classes.formControl}>
+      {/* <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="pipeline-select-label">Pipeline</InputLabel>
         <Select
           labelId="pipeline-select-label"
@@ -46,9 +46,9 @@ export default function Aside() {
           )}
 
         </Select>
-      </FormControl>
+      </FormControl> */}
 
-      <MainForm pipeline={pipeline} />
+      <MainForm />
 
     </div>
   );
