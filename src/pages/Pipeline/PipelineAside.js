@@ -6,7 +6,6 @@ import { useGlobalContext } from '../../contexts/GlobalContext';
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    height: "100%",
     textAlign: "center",
   },
   formControl: {

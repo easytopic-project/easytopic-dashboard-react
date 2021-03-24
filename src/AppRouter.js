@@ -14,7 +14,6 @@ function AppRouter() {
 
       <Route exact path="/" component={Home} />
       {pipelineOptions ? <Route path="/pipelines/:id" component={Pipeline} /> : <h1>Loading</h1>}
-      {pipelineOptions ? <Route path="/pipelines/:id" component={Pipeline} /> : <h1>Loading</h1>}
     </Router>
   );
 }

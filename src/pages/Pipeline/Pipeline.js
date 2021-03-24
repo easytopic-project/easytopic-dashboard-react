@@ -5,11 +5,8 @@ import PipelineAside from './PipelineAside';
 import PipelineMain from './PipelineMain';
 
 const useStyle = makeStyles((theme) => ({
-  root: {
-
-  },
   container: {
-    height: "100vh",
+    height: "90vh",
   },
 }));
 

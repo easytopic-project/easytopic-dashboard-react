@@ -6,7 +6,6 @@ import API from '../../api/API';
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    height: "100%",
   },
   results : {
     display: "flex",
