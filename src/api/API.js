@@ -11,17 +11,13 @@ export default class API {
   });
 
   static urls = {
-    fileServer: "http://localhost:3001/files",
-    pipeline: "http://localhost:8080/pipeline",
+    fileServer: `${process.env.REACT_APP_FILE_SERVER_URL}/files`,
+    pipeline: `${process.env.REACT_APP_API_URL}/pipeline`,
   };
   // Definir metodos para conversar com a api
 
   static async waitTimeout(time = 2000) {
     return new Promise(resolve => setTimeout(resolve, time));
-  }
-
-  static async postForm() {
-    // Postar o formulario de arquivos 
   }
 
   static async getPipelines() {
