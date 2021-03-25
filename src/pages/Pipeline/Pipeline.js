@@ -32,7 +32,7 @@ export default function Pipeline({ match: { params: { id } } }) {
           <Divider orientation="vertical"/>
         </Grid>
         <Grid item xs>
-          <PipelineMain />
+          {/* <PipelineMain /> */}
         </Grid>
       </Grid>
   );

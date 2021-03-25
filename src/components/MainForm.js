@@ -1,5 +1,6 @@
 import { Button, makeStyles } from '@material-ui/core';
 import React from 'react'
+import { Link, useHistory } from 'react-router-dom';
 import { TextInput, FileInput } from '.';
 import API from '../api/API';
 import { useGlobalContext } from '../contexts/GlobalContext';
@@ -25,6 +26,7 @@ export default function MainForm() {
 
   const classes = useStyles();
   const {setRunning, setProcessData, inputObj, setinputObj, pipeline} = useGlobalContext();
+  const history = useHistory();
 
   function onSubmit(event) {
 
@@ -34,6 +36,7 @@ export default function MainForm() {
       setRunning(true);
       setProcessData(res.data);
       console.log(res.data);
+      history.push(`/jobs/${res.data.id}`);
     });
   }
 

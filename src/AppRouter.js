@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Home, Pipeline } from "./pages"
 import { useGlobalContext } from "./contexts/GlobalContext";
+import PipelineMain from "./pages/Pipeline/PipelineMain";
 
 function AppRouter() {
 
@@ -13,7 +14,8 @@ function AppRouter() {
       <Header>Easytopic</Header>
 
       <Route exact path="/" component={Home} />
-      {pipelineOptions ? <Route path="/pipelines/:id" component={Pipeline} /> : <h1>Loading</h1>}
+      <Route path="/pipelines/:id" component={Pipeline} />
+      <Route path="/jobs/:id" component={PipelineMain} />
     </Router>
   );
 }

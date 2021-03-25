@@ -19,17 +19,18 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-export default function PipelineMain() {
+export default function PipelineMain({ match: { params: { id } } }) {
 
   const classes = useStyle();
-  const { setRunning, running, processData, setProcessData, pipeline } = useGlobalContext();
+  const { setRunning, running, processData, setProcessData, pipeline, setPipeline, pipelineOptions } = useGlobalContext();
 
   useEffect(() => {
-    if (running && processData.status !== "done") {
-      API.getJob(processData.id).then(res => {
+    if (!processData || processData.status !== "done") {
+      API.getJob(id).then(res => {
         setProcessData(res.data);
-        if (res.data.response)
-          setRunning(false);
+        setPipeline(pipelineOptions.find((pipeline) => pipeline.id === res.data.type));
+        console.log("setpipeline");
+        console.log(res.data);
       }); 
     }
   },[processData]);
@@ -37,15 +38,15 @@ export default function PipelineMain() {
   return (
     <div className={classes.root}>
       <div className={classes.results}>
-      {(!running && !processData.response) ? <Typography variant="h4">{pipeline.description}</Typography> : null }
-      {running ? <Typography variant="h4">Loading...</Typography> : null}
-      {processData.output ? pipeline.output.map((value, i) => {
+      {/* {(!running && !processData.response) ? <Typography variant="h4">{pipeline.description}</Typography> : null } */}
+      {!processData || processData.status !== "done" ? <Typography variant="h4">Loading...</Typography> : null}
+      {processData.output && pipeline ? pipeline.output.map((value, i) => {
         return (
           <Card className={classes.resultCard} key={value.id}>
             <CardContent>
             <Typography variant="h4">{value.name}</Typography>
             <Typography variant="h5">{value.description}</Typography>
-            <Typography>{processData.output[value.id]}</Typography>
+            <Typography component="pre">{processData.output[value.id]}</Typography>
             </CardContent>
           </Card>
         );

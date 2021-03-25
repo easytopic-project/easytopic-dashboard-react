@@ -26,6 +26,9 @@ export default function GlobalContextProvider({ children }) {
     API.getPipelines().then((res) => setPipelineOptions(res.data));
   },[]);
 
+  if (!pipelineOptions)
+  return <p>Loading...</p>
+
   return (
     <globalContext.Provider value={{darkMode, toggleTheme, processData, setProcessData, running, setRunning, pipeline, setPipeline, inputObj, setinputObj, pipelineOptions, setPipelineOptions, jobs, setJobs}}>
       {children}

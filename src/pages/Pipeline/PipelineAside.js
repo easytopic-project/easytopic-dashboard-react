@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-export default function Aside() {
+export default function PipelineAside() {
 
   const classes = useStyle();
 
