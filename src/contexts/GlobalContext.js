@@ -5,7 +5,8 @@ const globalContext = createContext();
 
 export default function GlobalContextProvider({ children }) {
 
-  const [darkMode, setDarkMode] = useState(false);
+  const getCurrentTheme = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [darkMode, setDarkMode] = useState(getCurrentTheme());
   const [running, setRunning] = useState(false);
   const [processData, setProcessData] = useState({});
   const [pipeline, setPipeline] = useState("");
