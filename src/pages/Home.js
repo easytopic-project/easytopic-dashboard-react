@@ -48,9 +48,8 @@ export default function Home() {
         </Select>
       </FormControl>
       {pipeline ? <Typography>{pipeline.description}</Typography> : null}
-      <Link to={`/pipelines/${pipeline.id}`}>
-      <Button variant="contained" color="primary">Start</Button>
-      </Link>
+
+      <Button disabled={!pipeline} component={Link} to={`/pipelines/${pipeline.id}`} variant="contained" color="primary">Start</Button>
     </Paper>
   );
 }

@@ -1,7 +1,7 @@
 import { Button, makeStyles } from '@material-ui/core';
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom';
-import { TextInput, FileInput } from '.';
+import { TextInput, FileInput, GenericInput } from '.';
 import API from '../api/API';
 import { useGlobalContext } from '../contexts/GlobalContext';
 
@@ -48,7 +48,7 @@ export default function MainForm() {
           return <FileInput key={pipeline.id+field.id} field={field} />
         if (field.type === "text")
           return <TextInput key={pipeline.id+field.id} field={field} /> 
-        return null;    
+          return <GenericInput key={pipeline.id+field.id} field={field} />
       })}
       
       <Button type="submit" form="main-form" variant="contained" color="primary">

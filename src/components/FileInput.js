@@ -115,7 +115,7 @@ export default function FileInput({ field }) {
       />
       <div className={classes.titleDiv}>
         <label htmlFor={field.id}>
-          <Typography>{field.name + ":"}</Typography>
+          <Typography>{field.required ? "* " + field.name + ":" : field.name + ":"}</Typography>
         </label>
         <Tooltip title={field.description}>
           <HelpOutlineIcon fontSize="small" />
