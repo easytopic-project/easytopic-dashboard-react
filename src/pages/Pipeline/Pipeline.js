@@ -1,4 +1,4 @@
-import { Divider, Grid, makeStyles } from '@material-ui/core'
+import { Container, Divider, Grid, makeStyles } from '@material-ui/core'
 import React , { useEffect } from 'react';
 import { useGlobalContext } from '../../contexts/GlobalContext';
 import PipelineAside from './PipelineAside';
@@ -24,16 +24,8 @@ export default function Pipeline({ match: { params: { id } } }) {
   }, [id])
 
   return (
-      <Grid container direction="row" className={classes.container}>
-        <Grid item xs={4} >
-          <PipelineAside />
-        </Grid>
-        <Grid item >
-          <Divider orientation="vertical"/>
-        </Grid>
-        <Grid item xs>
-          {/* <PipelineMain /> */}
-        </Grid>
-      </Grid>
+    <Container maxWidth="sm">
+      <PipelineAside />
+    </Container>
   );
 }

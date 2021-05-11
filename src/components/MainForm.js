@@ -1,4 +1,4 @@
-import { Button, makeStyles } from '@material-ui/core';
+import { Button, makeStyles, Typography } from '@material-ui/core';
 import React from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import { TextInput, FileInput, GenericInput } from '.';
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
     alignItems: "center",
     height: "50%",
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(3),
   },
 
 }));
@@ -40,9 +40,12 @@ export default function MainForm() {
     });
   }
 
-  return (
+  if (pipeline) return (
     <form id="main-form" onSubmit={onSubmit} className={classes.form}>
-      
+      <div>
+        <Typography variant="h4">{pipeline.id.toUpperCase()}</Typography>
+        <Typography>{pipeline.description}</Typography>
+      </div>
       {pipeline.input && pipeline.input.map((field, i) => {
         if (field.type === "file")
           return <FileInput key={pipeline.id+field.id} field={field} />
@@ -52,8 +55,9 @@ export default function MainForm() {
       })}
       
       <Button type="submit" form="main-form" variant="contained" color="primary">
-        Enviar
+        Send
       </Button>
     </form>
   )
+  return null;
 }

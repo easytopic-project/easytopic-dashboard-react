@@ -46,4 +46,8 @@ export default class API {
     console.log(res);
     return res;
   }
+
+  static async getJobs() {
+    return await this.axios.get(this.urls.pipeline);
+  }
 }

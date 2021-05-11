@@ -1,55 +1,47 @@
-import { Typography, FormControl, InputLabel, Select, makeStyles, MenuItem, Button, Paper } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { useGlobalContext } from "../contexts/GlobalContext";
+import { Button, Typography, makeStyles, Box, Tooltip } from '@material-ui/core'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const useStyle = makeStyles((theme) => ({
-  paper: {
-    "& > *": {
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3),
-    },
+  root: {
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: theme.spacing(5),
-    width: "40%",
-    margin: "auto",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    marginTop: theme.spacing(10),
   },
-  formControl: {
-    marginTop: theme.spacing(5),
-    width: "50%",
-  }
+  subtitle: {
+    maxWidth: "350px",
+    marginBottom: theme.spacing(10),
+    marginRight: theme.spacing(10),
+    marginLeft: theme.spacing(2),
+  },
+  highlight: {
+    "&:hover" :{
+      color: theme.palette.primary.light,
+    }
+  },
 }));
 
-export default function Home() {
+function Home() {
 
   const classes = useStyle();
-  const { pipeline, pipelineOptions, setPipeline } = useGlobalContext();
-
-  function handleSelectChange(event) {
-    setPipeline(event.target.value);
-  };
 
   return (
-    <Paper className={classes.paper} elevation={10}>
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="pipeline-select-label">Pipeline</InputLabel>
-        <Select
-          labelId="pipeline-select-label"
-          id="pipeline-select"
-          value={pipeline}
-          onChange={handleSelectChange}
-          label="Pipeline"
-        >
-          {pipelineOptions && pipelineOptions.map((option) => 
-            <MenuItem key={option.id} value={option}>{option.name}</MenuItem>
-          )}
-
-        </Select>
-      </FormControl>
-      {pipeline ? <Typography>{pipeline.description}</Typography> : null}
-
-      <Button disabled={!pipeline} component={Link} to={`/pipelines/${pipeline.id}`} variant="contained" color="primary">Start</Button>
-    </Paper>
-  );
+    <div className={classes.root}>
+      <Box>
+        <Typography variant="h1">Easytopic</Typography>
+        <Box className={classes.subtitle}>
+          <Typography>Gather relevant and objective data about your media materials throught one of Easytopic's 
+            <Tooltip title="Add description" aria-label="pipeline">
+              <Typography className={classes.highlight} color="primary" display="inline"> pipelines</Typography>
+            </Tooltip>
+          </Typography>
+        </Box>
+      </Box>
+      
+      <Button color="primary" variant="contained" component={Link} to="/pipelines">Select a pipeline</Button>
+    </div>
+  )
 }
+
+export default Home

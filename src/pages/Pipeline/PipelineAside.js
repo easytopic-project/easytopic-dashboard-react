@@ -31,24 +31,7 @@ export default function PipelineAside() {
 
   return (
     <div className={classes.root}>
-      {/* <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="pipeline-select-label">Pipeline</InputLabel>
-        <Select
-          labelId="pipeline-select-label"
-          id="pipeline-select"
-          value={pipeline}
-          onChange={handleSelectChange}
-          label="Pipeline"
-        >
-          {pipelineOptions.map((option) => 
-            <MenuItem key={option.id} value={option}>{option.name}</MenuItem>
-          )}
-
-        </Select>
-      </FormControl> */}
-
       <MainForm />
-
     </div>
   );
 }
