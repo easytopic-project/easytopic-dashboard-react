@@ -28,6 +28,10 @@ export default class API {
     // Status do processo (?)
   }
 
+  static getFileLink(file) {
+    return `${this.urls.fileServer}/${file}`;
+  }
+
   static async postFile(file) {
     return await this.axios.post(this.urls.fileServer, file);
   }

@@ -39,7 +39,7 @@ function Jobs() {
 
   return (
     <Container maxWidth="md">
-      <Typography variant="h4" className={classes.title}>My Pipelines</Typography>
+      <Typography variant="h4" className={classes.title}>My Jobs</Typography>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

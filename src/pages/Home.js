@@ -16,6 +16,7 @@ const useStyle = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
   },
   highlight: {
+    fontWeight: "bold",
     "&:hover" :{
       color: theme.palette.primary.light,
     }

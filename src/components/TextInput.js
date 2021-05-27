@@ -16,11 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TextInput({ field }) {
+export default function TextInput({ field, inputObj, setinputObj }) {
 
   const classes = useStyles();
 
-  const {inputObj, setinputObj} = useGlobalContext();
+  // const {inputObj, setinputObj} = useGlobalContext();
 
   function handleInputChange(event) {
     setinputObj({...inputObj, [field.id]: event.target.value})

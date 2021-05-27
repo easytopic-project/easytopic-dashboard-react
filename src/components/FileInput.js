@@ -55,13 +55,13 @@ function selectLogo(type) {
   }
 }
 
-export default function FileInput({ field }) {
+export default function FileInput({ field, inputObj, setinputObj }) {
 
   const classes = useStyles();
 
   const logo = useMemo(() => selectLogo(field.id), [field.id]);
 
-  const {inputObj, setinputObj} = useGlobalContext();
+  //const {inputObj, setinputObj} = useGlobalContext();
 
   const [file, setFile] = useState();
   const fileRef = useRef();

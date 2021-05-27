@@ -1,5 +1,5 @@
 import { Button, makeStyles, Typography } from '@material-ui/core';
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import { TextInput, FileInput, GenericInput } from '.';
 import API from '../api/API';
@@ -26,13 +26,14 @@ export default function MainForm() {
 
   const classes = useStyles();
   const {setRunning, setProcessData, inputObj, setinputObj, pipeline} = useGlobalContext();
+  const [inputObjTest, setInputObjTest] = useState({});
   const history = useHistory();
 
   function onSubmit(event) {
 
     event.preventDefault();
 
-    API.postJob(inputObj, pipeline.id).then((res) => {
+    API.postJob(inputObjTest, pipeline.id).then((res) => {
       setRunning(true);
       setProcessData(res.data);
       console.log(res.data);
@@ -48,10 +49,10 @@ export default function MainForm() {
       </div>
       {pipeline.input && pipeline.input.map((field, i) => {
         if (field.type === "file")
-          return <FileInput key={pipeline.id+field.id} field={field} />
+          return <FileInput key={pipeline.id+field.id} field={field} inputObj={inputObjTest} setinputObj={setInputObjTest}/>
         if (field.type === "text")
-          return <TextInput key={pipeline.id+field.id} field={field} /> 
-          return <GenericInput key={pipeline.id+field.id} field={field} />
+          return <TextInput key={pipeline.id+field.id} field={field} inputObj={inputObjTest} setinputObj={setInputObjTest}/> 
+        return <GenericInput key={pipeline.id+field.id} field={field} inputObj={inputObjTest} setinputObj={setInputObjTest}/>
       })}
       
       <Button type="submit" form="main-form" variant="contained" color="primary">

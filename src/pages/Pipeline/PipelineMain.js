@@ -3,6 +3,7 @@ import { makeStyles, Typography, Card, CardContent, Button, Divider } from '@mat
 import { useGlobalContext } from '../../contexts/GlobalContext';
 import API from '../../api/API';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import axios from "axios";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -40,6 +41,8 @@ export default function PipelineMain({ match: { params: { id } } }) {
     if (!jobData || jobData.status !== "done") {
       API.getJob(id).then(res => {
         setJobData(res.data);
+        pipelineOptions.map(pipeline => console.log(pipeline.id));
+        console.log(res.data.type);
         setPipeline(pipelineOptions.find((pipeline) => pipeline.id === res.data.type));
         console.log("setpipeline");
         console.log(res.data);
@@ -51,7 +54,23 @@ export default function PipelineMain({ match: { params: { id } } }) {
     const blob = new Blob([text], {type: "text/plain;charset=utf-8"});
     const url = window.URL.createObjectURL(blob);
     downloadArray.push(url);
+    console.log(url);
     return url
+  }
+
+  function downloadFile(file, type) {
+    axios.get(API.getFileLink(file), {responseType: 'blob'}).then((res) => {
+      console.log(res.data);
+      const url = window.URL.createObjectURL(res.data);
+      console.log(url);
+      downloadArray.push(url);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
   }
 
   return (
@@ -60,6 +79,20 @@ export default function PipelineMain({ match: { params: { id } } }) {
       {/* {(!running && !processData.response) ? <Typography variant="h4">{pipeline.description}</Typography> : null } */}
       {!jobData || jobData.status !== "done" ? <Typography variant="h4">Loading...</Typography> : null}
       {jobData.output && pipeline ? pipeline.output.map((value, i) => {
+        if (value.type == "file")
+          return (
+            <Card className={classes.resultCard} key={value.id}>
+              <CardContent>
+              <Typography variant="h4">{value.name}</Typography>
+              <Typography variant="h5">{value.description}</Typography>
+              <Divider className={classes.divider}/>
+              <Button variant="contained" onClick={() => downloadFile(jobData.output[value.id].name, jobData.output[value.id].mimetype)}>
+                <GetAppIcon className={classes.downloadIcon} />
+                Download
+              </Button>
+              </CardContent>
+            </Card>
+          )
         return (
           <Card className={classes.resultCard} key={value.id}>
             <CardContent>
