@@ -1,16 +1,16 @@
 import { Container, Divider, Grid, makeStyles } from '@material-ui/core'
 import React , { useEffect } from 'react';
 import { useGlobalContext } from '../../contexts/GlobalContext';
-import PipelineAside from './PipelineAside';
-import PipelineMain from './PipelineMain';
+import PipelineResult from './PipelineResult';
+import MainForm from '../../components/MainForm';
 
 const useStyle = makeStyles((theme) => ({
-  container: {
-    height: "90vh",
+  root: {
+    textAlign: "center",
   },
 }));
 
-export default function Pipeline({ match: { params: { id } } }) {
+export default function PipelineForm({ match: { params: { id } } }) {
 
   const classes = useStyle();
   const { pipelineOptions, setPipeline } = useGlobalContext();
@@ -24,8 +24,8 @@ export default function Pipeline({ match: { params: { id } } }) {
   }, [id])
 
   return (
-    <Container maxWidth="sm">
-      <PipelineAside />
+    <Container maxWidth="sm" className={classes.root}>
+      <MainForm />
     </Container>
   );
 }

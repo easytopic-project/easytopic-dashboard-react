@@ -14,19 +14,33 @@ const useStyle = makeStyles((theme) => ({
 function FilePreview({ type, file=null }) {
 
   const classes = useStyle();
-  const [imageSrc, setImageSrc] = useState();
+  const [fileSrc, setFileSrc] = useState();
 
-  if (file && type === "image") {
+  if (file && (type === "image" || type === "video")) {
     const reader = new FileReader();
     reader.onload = function() {
-      setImageSrc(reader.result);
+      setFileSrc(reader.result);
     }
     reader.readAsDataURL(file);
   }
 
   return (
     <div>
-      {  file ? (imageSrc ? <><img className={classes.img} src={imageSrc} /><Typography>{file.name}</Typography></> : <p>{file.name}</p>) : null }
+      {file ? 
+        (fileSrc ? 
+          (type === "image" ? 
+          <>
+            <img className={classes.img} src={fileSrc} />
+            <Typography>{file.name}</Typography>
+          </> : type === "video" ?
+          <>
+            <video 
+              className={classes.img} 
+              src={fileSrc}
+              controls
+            />
+            <Typography>{file.name}</Typography>
+          </> : null) : <Typography>{file.name}</Typography>) : null }
     </div>
   )
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, Pipeline, Jobs, PipelineSelection, NotFound, About } from "./pages"
+import { Home, PipelineForm, Jobs, PipelineSelection, NotFound, About } from "./pages"
 import { useGlobalContext } from "./contexts/GlobalContext";
-import PipelineMain from "./pages/Pipeline/PipelineMain";
+import PipelineResult from "./pages/Pipeline/PipelineResult";
 
 function AppRouter() {
 
@@ -15,9 +15,9 @@ function AppRouter() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/pipelines" component={PipelineSelection} />
-        <Route path="/pipelines/:id" component={Pipeline} />
+        <Route path="/pipelines/:id" component={PipelineForm} />
         <Route exact path="/jobs" component={Jobs} />
-        <Route path="/jobs/:id" component={PipelineMain} />
+        <Route path="/jobs/:id" component={PipelineResult} />
         <Route path="/about" component={About} />
         <Route path="*" component={NotFound} />
       </Switch>

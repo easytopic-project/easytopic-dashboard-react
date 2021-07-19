@@ -18,6 +18,13 @@ export default function Theme({ children }) {
         main: '#1b262c',
       }
     },
+    overrides: {
+      MuiStepIcon: {
+        root: {
+            fill: '#0f4c75',
+        },
+      },
+    },
   });
 
   return (

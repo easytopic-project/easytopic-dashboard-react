@@ -59,7 +59,7 @@ export default function FileInput({ field, inputObj, setinputObj }) {
 
   const classes = useStyles();
 
-  const logo = useMemo(() => selectLogo(field.id), [field.id]);
+  const logo = useMemo(() => selectLogo(field.accept.toString().split("/")[0]), [field.id]);
 
   //const {inputObj, setinputObj} = useGlobalContext();
 
@@ -144,7 +144,7 @@ export default function FileInput({ field, inputObj, setinputObj }) {
           </Button>
         </ButtonGroup>
       </label>
-      <FilePreview type={field.id} file={filePreview} />
+      <FilePreview type={field.accept.toString().split("/")[0]} file={filePreview} />
     </div>
   );
 }

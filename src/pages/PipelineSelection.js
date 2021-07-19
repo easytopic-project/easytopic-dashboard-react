@@ -1,5 +1,6 @@
 import { Typography, FormControl, InputLabel, Select, makeStyles, MenuItem, Button, Paper, List, ListItem, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import PipelineOption from "../components/PipelineOption";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
 const useStyle = makeStyles((theme) => ({
@@ -19,6 +20,10 @@ const useStyle = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
     width: "50%",
   },
+  title : {
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(5),
+  },
   row: {
     "&:hover": {
       backgroundColor: `${theme.palette.primary.dark} !important`,
@@ -34,6 +39,9 @@ const useStyle = makeStyles((theme) => ({
   },
   table: {
     marginTop: theme.spacing(3),
+  },
+  pipOpt: {
+    marginBottom: "30px",
   }
 }));
 
@@ -48,8 +56,13 @@ export default function PipelineSelection() {
 
   return (
       <Container maxWidth="md" className={classes.container}>
-        <Typography variant="h4" >Select your pipeline</Typography>
-        <TableContainer component={Paper} className={classes.table}>
+        <Typography variant="h4" className={classes.title} >Select your pipeline</Typography>
+        {pipelineOptions && pipelineOptions.map((option) =>
+          <div className={classes.pipOpt}>
+            <PipelineOption key={option.id} option={option} />
+          </div>
+        )}
+        {/* <TableContainer component={Paper} className={classes.table}>
           <Table>
             <TableBody>
               {pipelineOptions && pipelineOptions.map((option) => 
@@ -60,7 +73,7 @@ export default function PipelineSelection() {
               )}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
       </Container>
   );
 }

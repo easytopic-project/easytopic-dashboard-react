@@ -25,6 +25,22 @@ const useStyle = makeStyles((theme) => ({
   },
   cell: {
     color: "white",
+  },
+  status: {
+    width: "max-content",
+    padding: "3px 10px 0px 10px",
+    margin: "auto",
+    borderRadius: "20px",
+  },
+  done: {
+    backgroundColor: "green",
+  },
+  waiting: {
+    backgroundColor: "yellow",
+    color: "black",
+  },
+  failed: {
+    backgroundColor: "red",
   }
 }));
 
@@ -56,7 +72,11 @@ function Jobs() {
                 <TableCell className={classes.cell} align="center">{job.id}</TableCell>
                 <TableCell className={classes.cell} align="center">{job.type.toUpperCase()}</TableCell>
                 <TableCell className={classes.cell} align="center">{job.version}</TableCell>
-                <TableCell className={classes.cell} align="center">{job.status.toUpperCase()}</TableCell>
+                <TableCell className={classes.cell} align="center">
+                  <div className={`${classes.status} ${classes[job.status]}`}>
+                    {job.status.toUpperCase()}
+                  </div>   
+                </TableCell>
               </TableRow>
             )}
           </TableBody>

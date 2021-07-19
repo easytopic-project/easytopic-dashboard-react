@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles, Typography, Card, CardContent, Button, Divider } from '@material-ui/core'
+import { makeStyles, Typography, Card, CardContent, Button, Divider, CardMedia } from '@material-ui/core'
 import { useGlobalContext } from '../../contexts/GlobalContext';
 import API from '../../api/API';
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -27,9 +27,13 @@ const useStyle = makeStyles((theme) => ({
   downloadIcon: {
     marginRight: theme.spacing(),
   },
+  mediaPreview : {
+    maxWidth: "640px",
+    marginBottom: theme.spacing(2),
+  }
 }));
 
-export default function PipelineMain({ match: { params: { id } } }) {
+export default function PipelineResult({ match: { params: { id } } }) {
 
   const classes = useStyle();
   const { setRunning, running, processData, setProcessData, pipeline, setPipeline, pipelineOptions } = useGlobalContext();
@@ -83,16 +87,43 @@ export default function PipelineMain({ match: { params: { id } } }) {
           return (
             <Card className={classes.resultCard} key={value.id}>
               <CardContent>
-              <Typography variant="h4">{value.name}</Typography>
-              <Typography variant="h5">{value.description}</Typography>
-              <Divider className={classes.divider}/>
-              <Button variant="contained" onClick={() => downloadFile(jobData.output[value.id].name, jobData.output[value.id].mimetype)}>
-                <GetAppIcon className={classes.downloadIcon} />
-                Download
-              </Button>
+                <Typography variant="h4">{value.name}</Typography>
+                <Typography variant="h5">{value.description}</Typography>
+                <Divider className={classes.divider} />
+
+                {jobData.output[value.id].mimetype.split("/")[0] == "video" ? (
+                  <div className={classes.mediaPreview}>
+                    <video
+                      src={API.getFileLink(jobData.output[value.id].name)}
+                      type={jobData.output[value.id].mimetype}
+                      width="100%"
+                      controls
+                    />
+                  </div>
+                ) : jobData.output[value.id].mimetype.split("/")[0] == "image" ? (
+                  <div className={classes.mediaPreview}>
+                    <img 
+                      src={API.getFileLink(jobData.output[value.id].name)}
+                      width="100%"
+                    />
+                  </div>
+                ) : null}
+
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    downloadFile(
+                      jobData.output[value.id].name,
+                      jobData.output[value.id].mimetype
+                    )
+                  }
+                >
+                  <GetAppIcon className={classes.downloadIcon} />
+                  Download
+                </Button>
               </CardContent>
             </Card>
-          )
+          );
         return (
           <Card className={classes.resultCard} key={value.id}>
             <CardContent>
