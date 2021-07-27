@@ -1,55 +1,105 @@
-import { TextField, Button, makeStyles } from '@material-ui/core';
-import React, { useState } from 'react'
-import { VideoInput, TextInput, SlideInput } from '.';
+import { Button, makeStyles, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { TextInput, FileInput, GenericInput } from ".";
+import API from "../api/API";
+import { useGlobalContext } from "../contexts/GlobalContext";
+import SelectInput from "./SelectInput";
 
 const useStyles = makeStyles((theme) => ({
-  form : {
+  form: {
+    "& > *": {
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
+    },
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+
     alignItems: "center",
     height: "50%",
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(3),
   },
-
 }));
 
-export default function MainForm(props) {
-
+export default function MainForm() {
   const classes = useStyles();
-
-  const [video, setVideo] = useState();
-  const [text, setText] = useState();
-  const [slide, setSlide] = useState();
-
+  const { setRunning, setProcessData, inputObj, setinputObj, pipeline } =
+    useGlobalContext();
+  const [inputObjTest, setInputObjTest] = useState({});
+  const history = useHistory();
 
   function onSubmit(event) {
-    // usar FormData e usar a API para postar os arquivos
-    console.log(event.target);
     event.preventDefault();
-  };
+    const req = {
+      input: inputObjTest,
+      params: {
+        id: pipeline.id,
+      },
+    };
 
-  function handleVideoChange(event) {
-    setVideo(event.target.files[0]);
-  };
+    API.postJob(inputObjTest, pipeline.id).then((res) => {
+      setRunning(true);
+      console.log(res);
+      setProcessData(res.data);
+      history.push(`/jobs/${res.data.id}`);
+    });
+  }
 
-  function handleTextChange(event) {
-    setText(event.target.files[0]);
-  };
+  if (pipeline)
+    return (
+      <form id="main-form" onSubmit={onSubmit} className={classes.form}>
+        <div>
+          <Typography variant="h4">{pipeline.id.toUpperCase()}</Typography>
+          <Typography>{pipeline.description}</Typography>
+        </div>
+        {pipeline.input &&
+          pipeline.input.map((field, i) => {
+            if (field.type === "file")
+              return (
+                <FileInput
+                  key={pipeline.id + field.id}
+                  field={field}
+                  inputObj={inputObjTest}
+                  setinputObj={setInputObjTest}
+                />
+              );
+            else if (field.type === "text")
+              return (
+                <TextInput
+                  key={pipeline.id + field.id}
+                  field={field}
+                  inputObj={inputObjTest}
+                  setinputObj={setInputObjTest}
+                />
+              );
+            else if (field.type === "select")
+              return (
+                <SelectInput
+                  key={pipeline.id + field.id}
+                  field={field}
+                  inputObj={inputObjTest}
+                  setinputObj={setInputObjTest}
+                />
+              );
+            return (
+              <GenericInput
+                key={pipeline.id + field.id}
+                field={field}
+                inputObj={inputObjTest}
+                setinputObj={setInputObjTest}
+              />
+            );
+          })}
 
-  function handleSlideChange(event) {
-    setSlide(event.target.files[0]);
-  };
-
-  return (
-    <form id="main-form" onSubmit={onSubmit} className={classes.form}>
-      <VideoInput id="video-file" onChange={handleVideoChange}>Vídeo</VideoInput>
-      <TextInput id="text-file" onChange={handleTextChange}>Texto</TextInput>
-      <SlideInput id="slide-file" onChange={handleSlideChange}>Slide</SlideInput>      
-      
-      <Button type="submit" form="main-form" variant="contained" color="primary">
-        Enviar
-      </Button>
-    </form>
-  )
+        <Button
+          type="submit"
+          form="main-form"
+          variant="contained"
+          color="primary"
+        >
+          Send
+        </Button>
+      </form>
+    );
+  return null;
 }
