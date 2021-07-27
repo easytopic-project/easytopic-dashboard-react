@@ -44,6 +44,8 @@ function selectLogo(type) {
   switch (type) {
     case "image":
       return <ImageIcon />
+    case ".jpg":
+      return <ImageIcon />
     case "video":
       return <VideoIcon />
     case "text":

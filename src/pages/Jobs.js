@@ -2,8 +2,12 @@ import { Container, Table, TableBody, TableCell, TableContainer, TableRow, Typog
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import API from '../api/API'
+import { useJobsContext } from '../contexts/JobsContext';
 
 const useStyle = makeStyles((theme) => ({
+  container: {
+    marginBottom: theme.spacing(5),
+  },
   title: {
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(3),
@@ -46,15 +50,11 @@ const useStyle = makeStyles((theme) => ({
 
 function Jobs() {
 
-  const [jobs, setJobs] = useState();
+  const {jobsData} = useJobsContext();
   const classes = useStyle();
 
-  useEffect(() => {
-    API.getJobs().then((res) => setJobs(res));
-  }, [])
-
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" className={classes.container}>
       <Typography variant="h4" className={classes.title}>My Jobs</Typography>
       <TableContainer component={Paper}>
         <Table>
@@ -67,8 +67,8 @@ function Jobs() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {jobs && jobs.data.map((job) => 
-              <TableRow hover className={classes.row} button key={job.id} component={Link} to={`/jobs/${job.id}`}>
+            {jobsData && jobsData.map((job) => 
+              <TableRow hover className={classes.row} key={job.id} component={Link} to={`/jobs/${job.id}`}>
                 <TableCell className={classes.cell} align="center">{job.id}</TableCell>
                 <TableCell className={classes.cell} align="center">{job.type.toUpperCase()}</TableCell>
                 <TableCell className={classes.cell} align="center">{job.version}</TableCell>

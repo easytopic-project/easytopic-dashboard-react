@@ -1,12 +1,11 @@
 import axios from "axios";
 
 export default class API {
-
   static axios = axios.create({
     headers: {
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache',
-      'Expires': '0',
+      "Cache-Control": "no-cache",
+      Pragma: "no-cache",
+      Expires: "0",
     },
   });
 
@@ -17,11 +16,11 @@ export default class API {
   // Definir metodos para conversar com a api
 
   static async waitTimeout(time = 2000) {
-    return new Promise(resolve => setTimeout(resolve, time));
+    return new Promise((resolve) => setTimeout(resolve, time));
   }
 
   static async getPipelines() {
-    return await this.axios.get(`${this.urls.pipeline}/options`)
+    return await this.axios.get(`${this.urls.pipeline}/options`);
   }
 
   static async getStatus() {
@@ -37,21 +36,31 @@ export default class API {
   }
 
   static async deleteFile(file) {
-    return await this.axios.delete(`${this.urls.fileServer}/${file.name}`, file);
+    return await this.axios.delete(
+      `${this.urls.fileServer}/${file.name}`,
+      file
+    );
   }
 
   static async postJob(obj, route) {
     console.log(obj);
+    console.log(`${this.urls.pipeline}/${route}`);
     return await this.axios.post(`${this.urls.pipeline}/${route}`, obj);
   }
 
   static async getJob(id) {
-    const [res] = await Promise.all([this.axios.get(`${this.urls.pipeline}/${id}`), this.waitTimeout()]);
-    console.log(res);
+    const [res] = await Promise.all([
+      this.axios.get(`${this.urls.pipeline}/${id}`),
+      this.waitTimeout(),
+    ]);
     return res;
   }
 
-  static async getJobs() {
-    return await this.axios.get(this.urls.pipeline);
+  static async getJobs(time = 0) {
+    const [res] = await Promise.all([
+      this.axios.get(this.urls.pipeline),
+      this.waitTimeout(time),
+    ]);
+    return res;
   }
 }

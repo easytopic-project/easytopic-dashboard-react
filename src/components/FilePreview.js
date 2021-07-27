@@ -16,6 +16,10 @@ function FilePreview({ type, file=null }) {
   const classes = useStyle();
   const [fileSrc, setFileSrc] = useState();
 
+  if (type == ".jpg") {
+    type = "image";
+  }
+
   if (file && (type === "image" || type === "video")) {
     const reader = new FileReader();
     reader.onload = function() {
