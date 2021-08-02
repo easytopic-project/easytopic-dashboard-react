@@ -162,9 +162,6 @@ function Jobs() {
                       {job.status.toUpperCase()}
                     </div>
                   </TableCell>
-                  <TableCell className={classes.cell} align="center">
-                    01/01/2021
-                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
