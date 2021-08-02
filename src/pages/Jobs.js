@@ -100,7 +100,6 @@ function Jobs() {
     { id: "type", numeric: true, label: "Type" },
     { id: "version", numeric: true, label: "Version" },
     { id: "status", numeric: true, label: "Status" },
-    { id: "date", numeric: true, label: "Date" },
   ];
 
   function handleRequestSort(event, property) {
