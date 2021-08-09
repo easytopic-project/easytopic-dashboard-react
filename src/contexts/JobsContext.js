@@ -11,9 +11,21 @@ export default function JobsContextProvider({ children }) {
   const [jobsData, setJobsData] = useState();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
+  if (Notification.permission !== "denied") {
+    Notification.requestPermission();
+  }
+
   function playNotification() {
     const audio = new Audio(notificationSound);
     audio.play();
+  }
+
+  function showNotification(job) {
+    if (Notification.permission !== "granted") return;
+
+    const notification = new Notification("EasyTopic", {
+      body: `Job ${job.id} (${job.type.toUpperCase()}) is ready`,
+    });
   }
 
   useEffect(() => {
@@ -36,6 +48,7 @@ export default function JobsContextProvider({ children }) {
             `Job ${job.id} (${job.type.toUpperCase()}) completed`,
             { variant: "success" }
           );
+          showNotification(job);
           playNotification();
         });
         if (res.data.length !== jobsData.length) {
@@ -46,6 +59,7 @@ export default function JobsContextProvider({ children }) {
                   `Job ${job.id} (${job.type.toUpperCase()}) completed`,
                   { variant: "success" }
                 );
+                showNotification(job);
                 playNotification();
               }
             }
