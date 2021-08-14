@@ -22,7 +22,7 @@ const useStyle = makeStyles((theme) => ({
   }
 }));
 
-function Status({ children, color, center }) {
+function Status({ children, color, center=false }) {
   const classes = useStyle();
 
   return (
