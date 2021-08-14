@@ -14,6 +14,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import API from "../api/API";
+import Status from "../components/Status";
 import { useJobsContext } from "../contexts/JobsContext";
 
 const useStyle = makeStyles((theme) => ({
@@ -44,21 +45,8 @@ const useStyle = makeStyles((theme) => ({
     color: "white",
   },
   status: {
-    width: "max-content",
-    padding: "3px 10px 0px 10px",
-    margin: "auto",
-    borderRadius: "20px",
-  },
-  done: {
-    backgroundColor: "green",
-  },
-  waiting: {
-    backgroundColor: "yellow",
-    color: "black",
-  },
-  failed: {
-    backgroundColor: "red",
-  },
+    margin: "auto"
+  }
 }));
 
 function descendingComparator(a, b, orderBy) {
@@ -158,9 +146,9 @@ function Jobs() {
                     {job.version}
                   </TableCell>
                   <TableCell className={classes.cell} align="center">
-                    <div className={`${classes.status} ${classes[job.status]}`}>
+                    <Status color={job.status} center>
                       {job.status.toUpperCase()}
-                    </div>
+                    </Status>
                   </TableCell>
                 </TableRow>
               ))}
