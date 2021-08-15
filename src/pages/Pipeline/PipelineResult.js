@@ -23,8 +23,9 @@ export default function PipelineResult({
   },
 }) {
   const classes = useStyle();
-  const { pipeline, setPipeline, pipelineOptions } = useGlobalContext();
-  const [jobData, setJobData] = useState({});
+  const { pipelineOptions } = useGlobalContext();
+  const [ pipeline, setPipeline] = useState();
+  const [jobData, setJobData] = useState();
 
   useEffect(() => {
     if (!jobData || jobData.status !== "done") {
@@ -42,7 +43,7 @@ export default function PipelineResult({
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8} md={9}>
-          <JobHeader />
+          <JobHeader jobData={jobData} pipeline={pipeline} />
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
           <JobResults jobData={jobData} pipeline={pipeline} />

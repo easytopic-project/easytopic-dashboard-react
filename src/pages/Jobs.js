@@ -147,7 +147,7 @@ function Jobs() {
                   </TableCell>
                   <TableCell className={classes.cell} align="center">
                     <Status color={job.status} center>
-                      {job.status.toUpperCase()}
+                      <Typography>{job.status.toUpperCase()}</Typography>
                     </Status>
                   </TableCell>
                 </TableRow>

@@ -9,6 +9,7 @@ import {
   Box,
 } from "@material-ui/core";
 import GetAppIcon from "@material-ui/icons/GetApp";
+import Skeleton from "@material-ui/lab/Skeleton";
 import axios from "axios";
 import API from "../api/API";
 
@@ -31,7 +32,12 @@ const useStyle = makeStyles((theme) => ({
     maxWidth: "640px",
     marginBottom: theme.spacing(2),
   },
-  container: {},
+  skeleton: {
+    marginBottom: theme.spacing(3),
+    borderRadius: theme.shape.borderRadius,
+    marginLeft: "auto",
+    marginRight: "auto",
+  },
 }));
 
 function JobResults({ jobData, pipeline }) {
@@ -147,7 +153,15 @@ function JobResults({ jobData, pipeline }) {
                   </Card>
                 );
               })
-            : null}
+            : [...Array(3)].map((val, index) => (
+                <Skeleton
+                  key={index}
+                  className={classes.skeleton}
+                  variant="rect"
+                  width={"100%"}
+                  height={150}
+                />
+              ))}
         </Box>
       </CardContent>
     </Card>
