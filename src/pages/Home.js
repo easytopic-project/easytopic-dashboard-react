@@ -1,17 +1,19 @@
-import { Button, Typography, makeStyles, Box, Tooltip } from '@material-ui/core'
+import { Button, Typography, makeStyles, Box, Tooltip, Grid, Container } from '@material-ui/core'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
 const useStyle = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    alignItems: "flex-end",
-    justifyContent: "center",
-    marginTop: theme.spacing(10),
+  container: {
+    marginTop: theme.spacing(14),
+  },
+  title: {
+    [theme.breakpoints.down('xs')]: {
+      fontSize: "4.5rem",
+    },
   },
   subtitle: {
     maxWidth: "350px",
-    marginBottom: theme.spacing(10),
+    marginBottom: theme.spacing(5),
     marginRight: theme.spacing(10),
     marginLeft: theme.spacing(2),
   },
@@ -21,6 +23,10 @@ const useStyle = makeStyles((theme) => ({
       color: theme.palette.primary.light,
     }
   },
+  grow1: {
+    flexGrow: 1,
+  }
+
 }));
 
 function Home() {
@@ -28,20 +34,27 @@ function Home() {
   const classes = useStyle();
 
   return (
-    <div className={classes.root}>
-      <Box>
-        <Typography variant="h1">Easytopic</Typography>
-        <Box className={classes.subtitle}>
-          <Typography>Gather relevant and objective data about your media materials throught one of Easytopic's 
+    <>
+    <Container maxWidth="sm" className={classes.container}>
+
+    <Grid container direction="column">
+      <Grid item>
+        <Typography variant="h1" className={classes.title}>Easytopic</Typography>
+        <Typography className={classes.subtitle}>Gather relevant and objective data about your media materials throught one of Easytopic's 
             <Tooltip title="Add description" aria-label="pipeline">
-              <Typography className={classes.highlight} color="primary" display="inline"> pipelines</Typography>
+              <Typography component="span" className={classes.highlight} color="primary" display="inline"> pipelines</Typography>
             </Tooltip>
           </Typography>
-        </Box>
-      </Box>
-      
+      </Grid>
+      <Grid container>
+        <Grid item className={classes.grow1} />
+      <Grid item>
       <Button color="primary" variant="contained" component={Link} to="/pipelines">Select a pipeline</Button>
-    </div>
+      </Grid>
+      </Grid>
+    </Grid>
+    </Container>
+    </>
   )
 }
 

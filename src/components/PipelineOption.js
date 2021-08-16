@@ -9,11 +9,13 @@ import {
   Button,
   Typography,
   makeStyles,
+  Grid,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import React from "react";
 import { Link } from "react-router-dom";
-	
+import PipelineResultsPreview from "./PipelineResultsPreview";
+import PipelineStepsPreview from "./PipelineStepsPreview";
 
 const useStyle = makeStyles((theme) => ({
   field: {
@@ -35,8 +37,6 @@ const useStyle = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   details: {
-    justifyContent: "space-between",
-    display: "block",
   },
   stepper: {
     borderRadius: "30px",
@@ -46,9 +46,8 @@ const useStyle = makeStyles((theme) => ({
   step: {
     color: "red",
   },
-  button: {
-    marginTop: "20px",
-    marginLeft: "85%",
+  grow1: {
+    flexGrow: 1,
   },
 }));
 
@@ -68,17 +67,17 @@ function PipelineOption({ option }) {
             {option.description}
           </Typography>
         </AccordionSummary>
-        <AccordionDetails className={classes.details}>
-          <div>
-            <Stepper activeStep={null} className={classes.stepper}>
-              {steps.map((label, index) => (
-                <Step key={label} className={classes.step}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
+        <AccordionDetails>
+          <Grid container spacing={2} className={classes.grid} >
+            <Grid item xs={12}>
+              <PipelineStepsPreview pipeline={option} />
+            </Grid>
+            <Grid item xs={12}>
+              <PipelineResultsPreview pipeline={option} />
+            </Grid>
+            <Grid item className={classes.grow1}/>
+            <Grid item>
             <Button
-              className={classes.button}
               color="secondary"
               variant="contained"
               component={Link}
@@ -86,7 +85,9 @@ function PipelineOption({ option }) {
             >
               Select
             </Button>
-          </div>
+
+            </Grid>
+          </Grid>
         </AccordionDetails>
       </Accordion>
     </>

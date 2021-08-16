@@ -55,7 +55,7 @@ export default function PipelineSelection() {
   };
 
   return (
-      <Container maxWidth="md" className={classes.container}>
+      <Container maxWidth="sm" className={classes.container}>
         <Typography variant="h4" className={classes.title} >Select your pipeline</Typography>
         {pipelineOptions && pipelineOptions.map((option) =>
           <div key={option.id} className={classes.pipOpt}>
