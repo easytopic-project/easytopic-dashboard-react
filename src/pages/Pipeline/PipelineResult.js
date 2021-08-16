@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 import API from "../../api/API";
 import JobHeader from "../../components/JobHeader";
 import JobResults from "../../components/JobResults";
+import JobSteps from "../../components/JobSteps";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,7 @@ export default function PipelineResult({
 }) {
   const classes = useStyle();
   const { pipelineOptions } = useGlobalContext();
-  const [ pipeline, setPipeline] = useState();
+  const [pipeline, setPipeline] = useState();
   const [jobData, setJobData] = useState();
 
   useEffect(() => {
@@ -43,7 +44,14 @@ export default function PipelineResult({
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={8} md={9}>
-          <JobHeader jobData={jobData} pipeline={pipeline} />
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <JobHeader jobData={jobData} pipeline={pipeline} />
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <JobSteps jobData={jobData} pipeline={pipeline} />
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xs={12} sm={4} md={3}>
           <JobResults jobData={jobData} pipeline={pipeline} />

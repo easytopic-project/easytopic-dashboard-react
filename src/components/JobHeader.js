@@ -53,11 +53,11 @@ function JobHeader({ jobData, pipeline }) {
               <Grid container className={classes.statusContainer} spacing={1}>
                 <Grid item>
                   <Typography display="inline" variant="h6">
-                    Status:{""}
+                    Status:
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Status color={"done"}>
+                  <Status color={jobData.status}>
                     <Typography>{jobData.status.toUpperCase()}</Typography>
                   </Status>
                 </Grid>

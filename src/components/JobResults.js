@@ -14,10 +14,14 @@ import axios from "axios";
 import API from "../api/API";
 
 const useStyle = makeStyles((theme) => ({
+  container: {
+    backgroundColor: theme.palette.type === "light" ? theme.palette.primary.main : null,
+    color: "white",
+  },
   resultCard: {
     marginBottom: theme.spacing(3),
-    backgroundColor: theme.palette.primary.main,
-    color: "white",
+    backgroundColor: theme.palette.type === "dark" ? theme.palette.primary.main : null,
+    color: theme.palette.type === "dark" ? "white": null,
   },
   divider: {
     marginBottom: theme.spacing(3),
@@ -37,6 +41,9 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: theme.shape.borderRadius,
     marginLeft: "auto",
     marginRight: "auto",
+  },
+  overflowText: {
+    overflow: "auto",
   },
 }));
 
@@ -99,10 +106,20 @@ function JobResults({ jobData, pipeline }) {
                   return (
                     <Card className={classes.resultCard} key={value.id}>
                       <CardContent>
-                        <Typography variant="h5">{value.name}</Typography>
-                        <Typography variant="h6">
+                        <Typography variant="h6">{value.name}</Typography>
+                        <Typography variant="subtitle1">
                           {value.description}
                         </Typography>
+                        {value.from ? (
+                          <>
+                            <Typography color="secondary" variant="subtitle2">
+                              {`From step: ${value.from.split(":")[0]}`}
+                            </Typography>
+                            <Typography color="secondary" variant="subtitle2">
+                              {`Output: ${value.from.split(":")[1]}`}
+                            </Typography>
+                          </>
+                        ) : null}
                         <Divider className={classes.divider} />
 
                         {cardData.mimetype.split("/")[0] == "video" ? (
@@ -137,10 +154,28 @@ function JobResults({ jobData, pipeline }) {
                 return (
                   <Card className={classes.resultCard} key={value.id}>
                     <CardContent>
-                      <Typography variant="h4">{value.name}</Typography>
-                      <Typography variant="h5">{value.description}</Typography>
+                      <Typography variant="h6">{value.name}</Typography>
+                      <Typography variant="subtitle1">
+                        {value.description}
+                      </Typography>
+                      {value.from ? (
+                        <>
+                          <Typography color="secondary" variant="subtitle2">
+                            {`From step: ${value.from.split(":")[0]}`}
+                          </Typography>
+                          <Typography color="secondary" variant="subtitle2">
+                            {`Output: ${value.from.split(":")[1]}`}
+                          </Typography>
+                        </>
+                      ) : null}
                       <Divider className={classes.divider} />
-                      <Typography component="pre">{cardData}</Typography>
+                      <Typography
+                        className={classes.overflowText}
+                        component="pre"
+                        paragraph
+                      >
+                        {cardData}
+                      </Typography>
                       <Button
                         variant="contained"
                         href={downloadText(cardData)}
