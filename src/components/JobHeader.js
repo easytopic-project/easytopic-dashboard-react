@@ -10,9 +10,6 @@ import React from "react";
 import Status from "./Status";
 
 const useStyle = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-  },
   statusContainer: {
     marginTop: theme.spacing(1),
   },
@@ -22,7 +19,7 @@ function JobHeader({ jobData, pipeline }) {
   const classes = useStyle();
 
   return (
-    <Card className={classes.root}>
+    <Card raised>
       <CardContent>
         <Grid container justifyContent="space-between">
           <Grid item xs={8}>
@@ -67,7 +64,11 @@ function JobHeader({ jobData, pipeline }) {
             )}
           </Grid>
           <Grid item>
-            {jobData ? <Typography variant="h4">{`#${jobData.id}`}</Typography> : <Skeleton width="50px" height="50px" />}
+            {jobData ? (
+              <Typography variant="h4">{`#${jobData.id}`}</Typography>
+            ) : (
+              <Skeleton width="50px" height="50px" />
+            )}
           </Grid>
         </Grid>
       </CardContent>

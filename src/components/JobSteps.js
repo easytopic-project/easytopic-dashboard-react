@@ -1,9 +1,7 @@
 import {
-  Avatar,
   Card,
   CardContent,
   ListItem,
-  ListItemAvatar,
   Typography,
   List,
   ListItemIcon,
@@ -30,12 +28,11 @@ function JobSteps({ jobData, pipeline }) {
 
   function handleClickOpen(job) {
     setOpen(true);
-    console.log(job);
     setStep(job);
   }
 
   return (
-    <Card>
+    <Card raised>
       <CardContent>
         <Typography variant="h4">Steps</Typography>
         <List>

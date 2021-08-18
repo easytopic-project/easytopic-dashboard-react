@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles, Divider, Grid } from "@material-ui/core";
+import { makeStyles, Grid } from "@material-ui/core";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import API from "../../api/API";
 import JobHeader from "../../components/JobHeader";
@@ -32,7 +32,6 @@ export default function PipelineResult({
     if (!jobData || jobData.status !== "done") {
       API.getJob(id).then((res) => {
         setJobData(res.data);
-        pipelineOptions.map((pipeline) => console.log(pipeline.id));
         setPipeline(
           pipelineOptions.find((pipeline) => pipeline.id === res.data.type)
         );

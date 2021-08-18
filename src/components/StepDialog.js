@@ -8,7 +8,6 @@ import {
   List,
   ListSubheader,
   Grid,
-  Divider,
 } from "@material-ui/core";
 import React from "react";
 
@@ -35,11 +34,11 @@ function StepDialog({ step, open, onClose }) {
             <List subheader={<ListSubheader>Outputs</ListSubheader>}>
               {step &&
                 Object.keys(step.output).map((keyName, index) => (
-                    <ListItem key={keyName}>
-                      <ListItemText>
-                        <Typography>{`${keyName}: ${step.output[keyName]}`}</Typography>
-                      </ListItemText>
-                    </ListItem>
+                  <ListItem key={keyName}>
+                    <ListItemText>
+                      <Typography>{`${keyName}: ${step.output[keyName]}`}</Typography>
+                    </ListItemText>
+                  </ListItem>
                 ))}
             </List>
           </Grid>

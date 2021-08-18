@@ -1,23 +1,27 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import { makeStyles, Button, ButtonGroup, Tooltip, Typography } from "@material-ui/core";
-import AttachFileIcon from '@material-ui/icons/AttachFile';
-import ImageIcon from '@material-ui/icons/Image'; //image
-import VideoIcon from '@material-ui/icons/Theaters'; //video
-import TextIcon from '@material-ui/icons/Description'; //text
-import SlideIcon from '@material-ui/icons/BurstMode'; //slide
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import DeleteIcon from '@material-ui/icons/Delete';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import API from '../api/API'
-import { useGlobalContext } from '../contexts/GlobalContext';
+import React, { useState, useMemo } from "react";
+import {
+  makeStyles,
+  Button,
+  ButtonGroup,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
+import AttachFileIcon from "@material-ui/icons/AttachFile";
+import ImageIcon from "@material-ui/icons/Image"; //image
+import VideoIcon from "@material-ui/icons/Theaters"; //video
+import TextIcon from "@material-ui/icons/Description"; //text
+import SlideIcon from "@material-ui/icons/BurstMode"; //slide
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import DeleteIcon from "@material-ui/icons/Delete";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
+import API from "../api/API";
 import { FilePreview } from ".";
 
-
 const useStyles = makeStyles((theme) => ({
-  root:{
+  root: {
     display: "flex",
     flexDirection: "column",
-    width: "60%",
+    width: "100%",
   },
   input: {
     display: "none",
@@ -35,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
-  checkOn : {
+  checkOn: {
     color: theme.palette.success.main,
   },
 }));
@@ -43,30 +47,29 @@ const useStyles = makeStyles((theme) => ({
 function selectLogo(type) {
   switch (type) {
     case "image":
-      return <ImageIcon />
+      return <ImageIcon />;
     case ".jpg":
-      return <ImageIcon />
+      return <ImageIcon />;
     case "video":
-      return <VideoIcon />
+      return <VideoIcon />;
     case "text":
-      return <TextIcon />
+      return <TextIcon />;
     case "slide":
-      return <SlideIcon />
+      return <SlideIcon />;
     default:
-      return <AttachFileIcon />
+      return <AttachFileIcon />;
   }
 }
 
 export default function FileInput({ field, inputObj, setinputObj }) {
-
   const classes = useStyles();
 
-  const logo = useMemo(() => selectLogo(field.accept.toString().split("/")[0]), [field.id]);
-
-  //const {inputObj, setinputObj} = useGlobalContext();
+  const logo = useMemo(
+    () => selectLogo(field.accept.toString().split("/")[0]),
+    [field.id]
+  );
 
   const [file, setFile] = useState();
-  const fileRef = useRef();
   const [inputKey, setInputKey] = useState(0);
   const [filePreview, setFilePreview] = useState();
 
@@ -76,33 +79,23 @@ export default function FileInput({ field, inputObj, setinputObj }) {
     if (file) {
       API.deleteFile(file);
     }
-      
-    const fd = new FormData();
-    fd.append('file', event.target.files[0], event.target.files[0].name);
 
-    API.postFile(fd).then(res => {
+    const fd = new FormData();
+    fd.append("file", event.target.files[0], event.target.files[0].name);
+
+    API.postFile(fd).then((res) => {
       setFile(res.data.file);
-      setinputObj({...inputObj, [field.id]: res.data.file})
+      setinputObj({ ...inputObj, [field.id]: res.data.file });
     });
   }
 
   function deleteFile() {
     API.deleteFile(file).then((res) => {
       setFile(null);
-      });
+    });
     setInputKey(inputKey + 1);
     setFilePreview(null);
   }
-
-  // useEffect(() => {
-  //   fileRef.current = file;
-  // }, [file]);
-
-  // useEffect(() => {
-  //   return () => {
-  //     fileRef.current && API.deleteFile(fileRef.current);
-  //   }
-  // }, []);
 
   return (
     <div className={classes.root}>
@@ -117,7 +110,9 @@ export default function FileInput({ field, inputObj, setinputObj }) {
       />
       <div className={classes.titleDiv}>
         <label htmlFor={field.id}>
-          <Typography>{field.required ? "* " + field.name + ":" : field.name + ":"}</Typography>
+          <Typography>
+            {field.required ? "* " + field.name + ":" : field.name + ":"}
+          </Typography>
         </label>
         <Tooltip title={field.description}>
           <HelpOutlineIcon fontSize="small" />
@@ -146,7 +141,10 @@ export default function FileInput({ field, inputObj, setinputObj }) {
           </Button>
         </ButtonGroup>
       </label>
-      <FilePreview type={field.accept.toString().split("/")[0]} file={filePreview} />
+      <FilePreview
+        type={field.accept.toString().split("/")[0]}
+        file={filePreview}
+      />
     </div>
   );
 }

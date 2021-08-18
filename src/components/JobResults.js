@@ -15,13 +15,15 @@ import API from "../api/API";
 
 const useStyle = makeStyles((theme) => ({
   container: {
-    backgroundColor: theme.palette.type === "light" ? theme.palette.primary.main : null,
+    backgroundColor:
+      theme.palette.type === "light" ? theme.palette.primary.main : null,
     color: "white",
   },
   resultCard: {
     marginBottom: theme.spacing(3),
-    backgroundColor: theme.palette.type === "dark" ? theme.palette.primary.main : null,
-    color: theme.palette.type === "dark" ? "white": null,
+    backgroundColor:
+      theme.palette.type === "dark" ? theme.palette.primary.main : null,
+    color: theme.palette.type === "dark" ? "white" : null,
   },
   divider: {
     marginBottom: theme.spacing(3),
@@ -55,16 +57,13 @@ function JobResults({ jobData, pipeline }) {
     const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
     const url = window.URL.createObjectURL(blob);
     downloadArray.push(url);
-    console.log(url);
     return url;
   }
 
   function downloadFile(file, type) {
     axios.get(API.getFileLink(file), { responseType: "blob" }).then((res) => {
-      console.log(res.data);
       const url = window.URL.createObjectURL(res.data);
-      console.log(url);
-      downloadArray.push(url);
+      setDownloadArray([...downloadArray, url]);
       const link = document.createElement("a");
       link.href = url;
       link.download = file;
@@ -75,7 +74,7 @@ function JobResults({ jobData, pipeline }) {
   }
 
   return (
-    <Card className={classes.container}>
+    <Card className={classes.container} raised>
       <CardContent>
         <Typography variant="h4" align="center">
           Results
@@ -83,16 +82,14 @@ function JobResults({ jobData, pipeline }) {
         <Divider className={classes.divider} />
         <Box overflow="auto">
           {jobData &&
-          jobData.status == "done" &&
+          jobData.status === "done" &&
           jobData.data &&
           pipeline &&
-          pipeline.id == jobData.type
+          pipeline.id === jobData.type
             ? pipeline.output.map((value, i) => {
                 let cardData = {};
                 if (value.from) {
-                  console.log(value);
                   const stringSplit = value.from.split(":");
-                  console.log(stringSplit);
                   cardData = jobData.data[stringSplit[0]][stringSplit[1]];
                 } else {
                   cardData =
@@ -102,7 +99,7 @@ function JobResults({ jobData, pipeline }) {
                       )
                     ][value.id];
                 }
-                if (value.type == "file")
+                if (value.type === "file")
                   return (
                     <Card className={classes.resultCard} key={value.id}>
                       <CardContent>
@@ -122,7 +119,7 @@ function JobResults({ jobData, pipeline }) {
                         ) : null}
                         <Divider className={classes.divider} />
 
-                        {cardData.mimetype.split("/")[0] == "video" ? (
+                        {cardData.mimetype.split("/")[0] === "video" ? (
                           <div className={classes.mediaPreview}>
                             <video
                               src={API.getFileLink(cardData.name)}
@@ -130,11 +127,12 @@ function JobResults({ jobData, pipeline }) {
                               controls
                             />
                           </div>
-                        ) : cardData.mimetype.split("/")[0] == "image" ? (
+                        ) : cardData.mimetype.split("/")[0] === "image" ? (
                           <div className={classes.mediaPreview}>
                             <img
                               src={API.getFileLink(cardData.name)}
                               width="100%"
+                              alt={`result ${value.name}`}
                             />
                           </div>
                         ) : null}

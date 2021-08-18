@@ -1,11 +1,7 @@
 import {
-  StepLabel,
-  Stepper,
-  Step,
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
   Button,
   Typography,
   makeStyles,
@@ -34,17 +30,7 @@ const useStyle = makeStyles((theme) => ({
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-  details: {
-  },
-  stepper: {
-    borderRadius: "30px",
-    width: "90%",
-    margin: "auto",
-  },
-  step: {
-    color: "red",
+    color: theme.palette.grey[400],
   },
   grow1: {
     flexGrow: 1,
@@ -53,7 +39,6 @@ const useStyle = makeStyles((theme) => ({
 
 function PipelineOption({ option }) {
   const classes = useStyle();
-  const steps = ["Input", "Process", "Output"];
   return (
     <>
       <Accordion className={classes.field}>
@@ -68,24 +53,23 @@ function PipelineOption({ option }) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Grid container spacing={2} className={classes.grid} >
+          <Grid container spacing={2} className={classes.grid}>
             <Grid item xs={12}>
               <PipelineStepsPreview pipeline={option} />
             </Grid>
             <Grid item xs={12}>
               <PipelineResultsPreview pipeline={option} />
             </Grid>
-            <Grid item className={classes.grow1}/>
+            <Grid item className={classes.grow1} />
             <Grid item>
-            <Button
-              color="secondary"
-              variant="contained"
-              component={Link}
-              to={`/pipelines/${option.id}`}
-            >
-              Select
-            </Button>
-
+              <Button
+                color="secondary"
+                variant="contained"
+                component={Link}
+                to={`/pipelines/${option.id}`}
+              >
+                Select
+              </Button>
             </Grid>
           </Grid>
         </AccordionDetails>

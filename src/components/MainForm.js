@@ -1,6 +1,6 @@
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { TextInput, FileInput, GenericInput } from ".";
 import API from "../api/API";
 import { useGlobalContext } from "../contexts/GlobalContext";
@@ -23,23 +23,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainForm() {
   const classes = useStyles();
-  const { setRunning, setProcessData, inputObj, setinputObj, pipeline } =
-    useGlobalContext();
+  const { setRunning, setProcessData, pipeline } = useGlobalContext();
   const [inputObjTest, setInputObjTest] = useState({});
   const history = useHistory();
 
   function onSubmit(event) {
     event.preventDefault();
-    const req = {
-      input: inputObjTest,
-      params: {
-        id: pipeline.id,
-      },
-    };
 
     API.postJob(inputObjTest, pipeline.id).then((res) => {
       setRunning(true);
-      console.log(res);
       setProcessData(res.data);
       history.push(`/jobs/${res.data.id}`);
     });

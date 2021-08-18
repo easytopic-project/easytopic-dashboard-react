@@ -1,13 +1,12 @@
 import React from "react";
 import { TextField, Tooltip, Typography, makeStyles } from "@material-ui/core";
-import { useGlobalContext } from '../contexts/GlobalContext';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 
 const useStyles = makeStyles((theme) => ({
-  root:{
+  root: {
     display: "flex",
     flexDirection: "column",
-    width: "60%",
+    width: "100%",
   },
   titleDiv: {
     display: "flex",
@@ -17,34 +16,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TextInput({ field, inputObj, setinputObj }) {
-
   const classes = useStyles();
 
-  // const {inputObj, setinputObj} = useGlobalContext();
-
   function handleInputChange(event) {
-    setinputObj({...inputObj, [field.id]: event.target.value})
+    setinputObj({ ...inputObj, [field.id]: event.target.value });
   }
 
   return (
     <div className={classes.root}>
-       <div className={classes.titleDiv}>
+      <div className={classes.titleDiv}>
         <label htmlFor={field.id}>
-          <Typography>{field.required ? "* " + field.name + ":" : field.name + ":"}</Typography>
+          <Typography>
+            {field.required ? "* " + field.name + ":" : field.name + ":"}
+          </Typography>
         </label>
         <Tooltip title={field.description}>
           <HelpOutlineIcon fontSize="small" />
         </Tooltip>
       </div>
       <TextField
-          id={field.id}
-          //label={field.name}
-          placeholder={field.name}
-          multiline
-          variant="outlined"
-          onChange={handleInputChange}
-          required={field.required}
-        />       
+        id={field.id}
+        //label={field.name}
+        placeholder={field.name}
+        multiline
+        variant="outlined"
+        onChange={handleInputChange}
+        required={field.required}
+      />
     </div>
   );
 }

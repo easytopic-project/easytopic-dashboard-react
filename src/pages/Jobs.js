@@ -11,9 +11,8 @@ import {
   TableHead,
   TableSortLabel,
 } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import API from "../api/API";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Status from "../components/Status";
 import { useJobsContext } from "../contexts/JobsContext";
 
@@ -45,8 +44,11 @@ const useStyle = makeStyles((theme) => ({
     color: "white",
   },
   status: {
-    margin: "auto"
-  }
+    margin: "auto",
+  },
+  labelActive: {
+    color: `${theme.palette.secondary.main} !important`,
+  },
 }));
 
 function descendingComparator(a, b, orderBy) {
@@ -76,7 +78,7 @@ function stableSort(array, comparator) {
 }
 
 function Jobs() {
-  const { jobsData, setJobsData } = useJobsContext();
+  const { jobsData } = useJobsContext();
   const classes = useStyle();
   const history = useHistory();
 
@@ -120,6 +122,7 @@ function Jobs() {
                     active={orderBy === headCell.id}
                     direction={orderBy === headCell.id ? order : "asc"}
                     onClick={(event) => handleRequestSort(event, headCell.id)}
+                    classes={{active: classes.labelActive}}
                   >
                     {headCell.label}
                   </TableSortLabel>

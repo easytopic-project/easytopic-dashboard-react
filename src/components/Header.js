@@ -1,11 +1,16 @@
-import { AppBar, Button, makeStyles, Toolbar, Typography, IconButton, Drawer } from "@material-ui/core";
-import { Link } from 'react-router-dom';
+import {
+  AppBar,
+  Button,
+  makeStyles,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { useGlobalContext } from "../contexts/GlobalContext";
 import MenuDrawer from "./MenuDrawer";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-  },
+  root: {},
   home: {
     marginLeft: theme.spacing(),
     marginRight: "auto",
@@ -15,12 +20,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header({ children }) {
-
   const classes = useStyles();
 
   const { toggleTheme } = useGlobalContext();
-
-  
 
   return (
     <div className={classes.root}>
@@ -28,11 +30,11 @@ export default function Header({ children }) {
         <Toolbar>
           <MenuDrawer />
           <Link to="/" className={classes.home}>
-            <Typography variant="h6">
-              {children}
-            </Typography>
+            <Typography variant="h6">{children}</Typography>
           </Link>
-          <Button onClick={toggleTheme} color="inherit" >Theme</Button>
+          <Button onClick={toggleTheme} color="inherit">
+            Theme
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

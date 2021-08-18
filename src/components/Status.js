@@ -19,14 +19,20 @@ const useStyle = makeStyles((theme) => ({
   },
   center: {
     margin: "auto",
-  }
+  },
 }));
 
-function Status({ children, color, center=false }) {
+function Status({ children, color, center = false }) {
   const classes = useStyle();
 
   return (
-    <div className={`${classes.status} ${classes[color]} ${center ? classes.center : null}`}>{children}</div>
+    <div
+      className={`${classes.status} ${classes[color]} ${
+        center ? classes.center : null
+      }`}
+    >
+      {children}
+    </div>
   );
 }
 

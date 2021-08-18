@@ -14,7 +14,6 @@ import {
   NotFound,
   About,
 } from "./pages";
-import { useGlobalContext } from "./contexts/GlobalContext";
 import PipelineResult from "./pages/Pipeline/PipelineResult";
 
 function App() {

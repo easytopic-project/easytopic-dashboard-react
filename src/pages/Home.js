@@ -1,13 +1,20 @@
-import { Button, Typography, makeStyles, Box, Tooltip, Grid, Container } from '@material-ui/core'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import {
+  Button,
+  Typography,
+  makeStyles,
+  Tooltip,
+  Grid,
+  Container,
+} from "@material-ui/core";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(14),
   },
   title: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down("xs")]: {
       fontSize: "4.5rem",
     },
   },
@@ -19,43 +26,59 @@ const useStyle = makeStyles((theme) => ({
   },
   highlight: {
     fontWeight: "bold",
-    "&:hover" :{
+    "&:hover": {
       color: theme.palette.primary.light,
-    }
+    },
   },
   grow1: {
     flexGrow: 1,
-  }
-
+  },
 }));
 
 function Home() {
-
   const classes = useStyle();
 
   return (
     <>
-    <Container maxWidth="sm" className={classes.container}>
-
-    <Grid container direction="column">
-      <Grid item>
-        <Typography variant="h1" className={classes.title}>Easytopic</Typography>
-        <Typography className={classes.subtitle}>Gather relevant and objective data about your media materials throught one of Easytopic's 
-            <Tooltip title="Add description" aria-label="pipeline">
-              <Typography component="span" className={classes.highlight} color="primary" display="inline"> pipelines</Typography>
-            </Tooltip>
-          </Typography>
-      </Grid>
-      <Grid container>
-        <Grid item className={classes.grow1} />
-      <Grid item>
-      <Button color="primary" variant="contained" component={Link} to="/pipelines">Select a pipeline</Button>
-      </Grid>
-      </Grid>
-    </Grid>
-    </Container>
+      <Container maxWidth="sm" className={classes.container}>
+        <Grid container direction="column">
+          <Grid item>
+            <Typography variant="h1" className={classes.title}>
+              Easytopic
+            </Typography>
+            <Typography className={classes.subtitle}>
+              Gather relevant and objective data about your media materials
+              throught one of Easytopic's
+              <Tooltip title="Add description" aria-label="pipeline">
+                <Typography
+                  component="span"
+                  className={classes.highlight}
+                  color="primary"
+                  display="inline"
+                >
+                  {" "}
+                  pipelines
+                </Typography>
+              </Tooltip>
+            </Typography>
+          </Grid>
+          <Grid container>
+            <Grid item className={classes.grow1} />
+            <Grid item>
+              <Button
+                color="primary"
+                variant="contained"
+                component={Link}
+                to="/pipelines"
+              >
+                Select a pipeline
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Container>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

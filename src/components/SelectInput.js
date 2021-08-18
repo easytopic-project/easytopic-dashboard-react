@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "60%",
+    width: "100%",
   },
   titleDiv: {
     display: "flex",

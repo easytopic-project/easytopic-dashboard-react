@@ -29,7 +29,6 @@ function PipelineStepsPreview({ pipeline }) {
 
   function handleClickOpen(job) {
     setOpen(true);
-    console.log(job);
     setStep(job);
   }
 

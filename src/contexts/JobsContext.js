@@ -1,7 +1,5 @@
-import { Button } from "@material-ui/core";
 import { useSnackbar } from "notistack";
 import React, { createContext, useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import API from "../api/API";
 import notificationSound from "../assets/notification-sound.mp3";
 
@@ -52,7 +50,7 @@ export default function JobsContextProvider({ children }) {
           playNotification();
         });
         if (res.data.length !== jobsData.length) {
-          res.data.map((job) => {
+          res.data.forEach((job) => {
             if (!jobsData.find((oldJob) => job.id === oldJob.id)) {
               if (job.status === "done") {
                 enqueueSnackbar(

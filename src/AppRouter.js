@@ -1,12 +1,18 @@
 import React from "react";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home, PipelineForm, Jobs, PipelineSelection, NotFound, About } from "./pages"
+import {
+  Home,
+  PipelineForm,
+  Jobs,
+  PipelineSelection,
+  NotFound,
+  About,
+} from "./pages";
 import { useGlobalContext } from "./contexts/GlobalContext";
 import PipelineResult from "./pages/Pipeline/PipelineResult";
 
 function AppRouter() {
-
   const { pipelineOptions } = useGlobalContext();
 
   return (

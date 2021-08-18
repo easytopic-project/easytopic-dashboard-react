@@ -43,8 +43,6 @@ export default class API {
   }
 
   static async postJob(obj, route) {
-    console.log(obj);
-    console.log(`${this.urls.pipeline}/${route}`);
     return await this.axios.post(`${this.urls.pipeline}/${route}`, obj);
   }
 
