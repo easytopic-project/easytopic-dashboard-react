@@ -39,36 +39,76 @@ function JobSteps({ jobData, pipeline }) {
           {pipeline &&
             jobData &&
             pipeline.jobs.map((job, index) => (
-              <ListItem key={job.id}>
-                <ListItemIcon>
-                  {jobData.status === "done" ? (
-                    <CheckCircleIcon style={{ color: "green" }} />
-                  ) : null}
-                  {jobData.status === "waiting" ? (
-                    <CircularProgress
-                      size="1.5rem"
-                      thickness={8}
-                      color="secondary"
-                    />
-                  ) : null}
-                </ListItemIcon>
+              <>
+                {job.jobs
+                  ? job.jobs.map((insideJob) => (
+                      <ListItem key={insideJob.id}>
+                        <ListItemIcon>
+                          {jobData.status === "done" ? (
+                            <CheckCircleIcon style={{ color: "green" }} />
+                          ) : null}
+                          {jobData.status === "waiting" ? (
+                            <CircularProgress
+                              size="1.5rem"
+                              thickness={8}
+                              color="secondary"
+                            />
+                          ) : null}
+                        </ListItemIcon>
 
-                <ListItemText
-                  primary={job.id}
-                  secondary={false ? "texto secundário" : null}
-                />
+                        <ListItemText
+                          primary={insideJob.id}
+                          secondary={false ? "texto secundário" : null}
+                        />
 
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-label="info"
-                    onClick={() => handleClickOpen(job)}
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                  <StepDialog step={step} open={open} onClose={handleClose} />
-                </ListItemSecondaryAction>
-              </ListItem>
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            edge="end"
+                            aria-label="info"
+                            onClick={() => handleClickOpen(insideJob)}
+                          >
+                            <InfoIcon />
+                          </IconButton>
+                          <StepDialog
+                            step={step}
+                            open={open}
+                            onClose={handleClose}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    ))
+                  : null}
+                <ListItem key={job.id}>
+                  <ListItemIcon>
+                    {jobData.status === "done" ? (
+                      <CheckCircleIcon style={{ color: "green" }} />
+                    ) : null}
+                    {jobData.status === "waiting" ? (
+                      <CircularProgress
+                        size="1.5rem"
+                        thickness={8}
+                        color="secondary"
+                      />
+                    ) : null}
+                  </ListItemIcon>
+
+                  <ListItemText
+                    primary={job.id}
+                    secondary={false ? "texto secundário" : null}
+                  />
+
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="info"
+                      onClick={() => handleClickOpen(job)}
+                    >
+                      <InfoIcon />
+                    </IconButton>
+                    <StepDialog step={step} open={open} onClose={handleClose} />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </>
             ))}
         </List>
       </CardContent>

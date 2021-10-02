@@ -16,34 +16,40 @@ function StepDialog({ step, open, onClose }) {
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{step.id}</DialogTitle>
-      <Container>
-        <Grid container>
-          <Grid item xs={6}>
-            <List subheader={<ListSubheader>Arguments</ListSubheader>}>
-              {step &&
-                Object.keys(step.arguments).map((keyName, index) => (
-                  <ListItem key={keyName}>
-                    <ListItemText>
-                      <Typography>{`${keyName}: ${step.arguments[keyName]}`}</Typography>
-                    </ListItemText>
-                  </ListItem>
-                ))}
-            </List>
+      {step && !step.arguments ? (
+        <Container>
+          <Typography> Aggregation Step </Typography>
+        </Container>
+      ) : (
+        <Container>
+          <Grid container>
+            <Grid item xs={6}>
+              <List subheader={<ListSubheader>Arguments</ListSubheader>}>
+                {step &&
+                  Object.keys(step.arguments).map((keyName, index) => (
+                    <ListItem key={keyName}>
+                      <ListItemText>
+                        <Typography>{`${keyName}: ${step.arguments[keyName]}`}</Typography>
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+              </List>
+            </Grid>
+            <Grid item>
+              <List subheader={<ListSubheader>Outputs</ListSubheader>}>
+                {step &&
+                  Object.keys(step.output).map((keyName, index) => (
+                    <ListItem key={keyName}>
+                      <ListItemText>
+                        <Typography>{`${keyName}: ${step.output[keyName]}`}</Typography>
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+              </List>
+            </Grid>
           </Grid>
-          <Grid item>
-            <List subheader={<ListSubheader>Outputs</ListSubheader>}>
-              {step &&
-                Object.keys(step.output).map((keyName, index) => (
-                  <ListItem key={keyName}>
-                    <ListItemText>
-                      <Typography>{`${keyName}: ${step.output[keyName]}`}</Typography>
-                    </ListItemText>
-                  </ListItem>
-                ))}
-            </List>
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      )}
       <Typography // TODO remover ?
         style={{ color: "grey", margin: "10px" }}
         align="right"

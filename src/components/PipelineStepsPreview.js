@@ -39,6 +39,29 @@ function PipelineStepsPreview({ pipeline }) {
         <List>
           {pipeline &&
             pipeline.jobs.map((job, index) => (
+              <>
+              {job.jobs ? job.jobs.map((insideJob) => (
+              <ListItem key={insideJob.id}>
+                <ListItemIcon>
+                  <MemoryIcon />
+                </ListItemIcon>
+
+                <ListItemText
+                  primary={insideJob.id}
+                  secondary={false ? "texto secundário" : null}
+                />
+
+                <ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-label="info"
+                    onClick={() => handleClickOpen(insideJob)}
+                  >
+                    <InfoIcon />
+                  </IconButton>
+                  <StepDialog step={step} open={open} onClose={handleClose} />
+                </ListItemSecondaryAction>
+              </ListItem>))  : null}
               <ListItem key={job.id}>
                 <ListItemIcon>
                   <MemoryIcon />
@@ -60,6 +83,7 @@ function PipelineStepsPreview({ pipeline }) {
                   <StepDialog step={step} open={open} onClose={handleClose} />
                 </ListItemSecondaryAction>
               </ListItem>
+              </>
             ))}
         </List>
       </CardContent>

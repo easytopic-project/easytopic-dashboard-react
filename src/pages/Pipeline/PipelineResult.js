@@ -5,6 +5,8 @@ import API from "../../api/API";
 import JobHeader from "../../components/JobHeader";
 import JobResults from "../../components/JobResults";
 import JobSteps from "../../components/JobSteps";
+import TimeChart from "../../components/TimeChart";
+import TimelineChart from "../../components/TimelineChart";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -49,6 +51,9 @@ export default function PipelineResult({
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <JobSteps jobData={jobData} pipeline={pipeline} />
+            </Grid>
+            <Grid item xs={4}>
+              <TimeChart jobData={jobData} />
             </Grid>
           </Grid>
         </Grid>
