@@ -124,6 +124,7 @@ function JobResults({ jobData, pipeline }) {
                             <video
                               src={API.getFileLink(cardData.name)}
                               width="100%"
+                              alt={`result ${value.name}`}
                               controls
                             />
                           </div>
@@ -133,6 +134,15 @@ function JobResults({ jobData, pipeline }) {
                               src={API.getFileLink(cardData.name)}
                               width="100%"
                               alt={`result ${value.name}`}
+                            />
+                          </div>
+                        ) : cardData.mimetype.split("/")[0] === "audio" ? (
+                          <div className={classes.mediaPreview}>
+                            <audio
+                              src={API.getFileLink(cardData.name)}
+                              width="100%"
+                              alt={`result ${value.name}`}
+                              controls
                             />
                           </div>
                         ) : null}
