@@ -49,10 +49,10 @@ export default function PipelineResult({
             <Grid item xs={12}>
               <JobHeader jobData={jobData} pipeline={pipeline} />
             </Grid>
-            <Grid item xs={12} sm={12} md={4}>
+            <Grid item xs={12} sm={12} md={6} lg={4}>
               <JobSteps jobData={jobData} pipeline={pipeline} />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={12} md={6} lg={4}>
               <TimeChart jobData={jobData} />
             </Grid>
           </Grid>
