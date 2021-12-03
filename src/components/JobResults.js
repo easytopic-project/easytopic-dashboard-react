@@ -91,6 +91,7 @@ function JobResults({ jobData, pipeline }) {
                 if (value.from) {
                   const stringSplit = value.from.split(":");
                   cardData = jobData.data[stringSplit[0]][stringSplit[1]];
+                  if (!cardData) cardData = jobData.data[stringSplit[0]]["0"]; // TODO Quick fix for key problem
                 } else {
                   cardData =
                     jobData.data[

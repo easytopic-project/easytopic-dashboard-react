@@ -70,6 +70,9 @@ function MenuDrawer() {
             <ListItem button component={Link} to={`/jobs`}>
               <ListItemText>My Jobs</ListItemText>
             </ListItem>
+            <ListItem button component={Link} to={`/modules`}>
+              <ListItemText>Modules</ListItemText>
+            </ListItem>
           </List>
           <Box textAlign="center" m={3}>
             <Typography

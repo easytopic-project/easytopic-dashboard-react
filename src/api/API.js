@@ -12,6 +12,7 @@ export default class API {
   static urls = {
     fileServer: `${process.env.REACT_APP_FILE_SERVER_URL}/files`,
     pipeline: `${process.env.REACT_APP_API_URL}/pipeline`,
+    module: `${process.env.REACT_APP_API_URL}/module`,
   };
   // Definir metodos para conversar com a api
 
@@ -57,6 +58,14 @@ export default class API {
   static async getJobs(time = 0) {
     const [res] = await Promise.all([
       this.axios.get(this.urls.pipeline),
+      this.waitTimeout(time),
+    ]);
+    return res;
+  }
+
+  static async getModules(time = 0) {
+    const [res] = await Promise.all([
+      this.axios.get(this.urls.module),
       this.waitTimeout(time),
     ]);
     return res;

@@ -13,8 +13,10 @@ import {
   PipelineSelection,
   NotFound,
   About,
+  Modules,
 } from "./pages";
 import PipelineResult from "./pages/Pipeline/PipelineResult";
+import ModulesContextProvider from "./contexts/ModulesContext";
 
 function App() {
   return (
@@ -27,25 +29,28 @@ function App() {
       >
         <GlobalContextProvider>
           <JobsContextProvider>
-            <Theme>
-              <CssBaseline />
-              <div className="App">
-                <Header>Easytopic</Header>
-                <Switch>
-                  <Route exact path="/" component={Home} />
-                  <Route
-                    exact
-                    path="/pipelines"
-                    component={PipelineSelection}
-                  />
-                  <Route path="/pipelines/:id" component={PipelineForm} />
-                  <Route exact path="/jobs" component={Jobs} />
-                  <Route path="/jobs/:id" component={PipelineResult} />
-                  <Route path="/about" component={About} />
-                  <Route path="*" component={NotFound} />
-                </Switch>
-              </div>
-            </Theme>
+            <ModulesContextProvider>
+              <Theme>
+                <CssBaseline />
+                <div className="App">
+                  <Header>Easytopic</Header>
+                  <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route
+                      exact
+                      path="/pipelines"
+                      component={PipelineSelection}
+                    />
+                    <Route path="/pipelines/:id" component={PipelineForm} />
+                    <Route exact path="/jobs" component={Jobs} />
+                    <Route path="/jobs/:id" component={PipelineResult} />
+                    <Route path="/about" component={About} />
+                    <Route path="/modules" component={Modules} />
+                    <Route path="*" component={NotFound} />
+                  </Switch>
+                </div>
+              </Theme>
+            </ModulesContextProvider>
           </JobsContextProvider>
         </GlobalContextProvider>
       </SnackbarProvider>
