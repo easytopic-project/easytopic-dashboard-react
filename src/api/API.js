@@ -70,4 +70,25 @@ export default class API {
     ]);
     return res;
   }
+
+  static async postModule(build, configFile) {
+    console.log(build, configFile);
+
+    return await this.axios.post(`${this.urls.module}/add`, {
+      build: build,
+      configFile: configFile,
+    });
+  }
+
+  static async stopModule(id) {
+    console.log(id);
+
+    return await this.axios.post(`${this.urls.module}/stop`, { id: id });
+  }
+
+  static async startModule(id) {
+    console.log(id);
+
+    return await this.axios.post(`${this.urls.module}/start`, { id: id });
+  }
 }
