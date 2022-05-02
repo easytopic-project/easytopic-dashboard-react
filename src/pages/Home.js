@@ -44,11 +44,11 @@ function Home() {
         <Grid container direction="column">
           <Grid item>
             <Typography variant="h1" className={classes.title}>
-              Easytopic
+              M2P
             </Typography>
             <Typography className={classes.subtitle}>
               Gather relevant and objective data about your media materials
-              throught one of Easytopic's
+              throught one of M2P's
               <Tooltip title="Add description" aria-label="pipeline">
                 <Typography
                   component="span"

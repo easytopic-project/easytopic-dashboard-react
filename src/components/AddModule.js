@@ -85,7 +85,7 @@ function AddModule() {
         },
       }}
     >
-      <Typography variant="h3"> Admin only </Typography>
+      <Typography variant="h3"> New Module </Typography>
       <TextField
         id="build"
         label="Build"

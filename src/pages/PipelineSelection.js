@@ -1,4 +1,5 @@
-import { Typography, makeStyles, Container } from "@material-ui/core";
+import { Typography, makeStyles, Container, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import PipelineOption from "../components/PipelineOption";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
@@ -12,6 +13,13 @@ const useStyle = makeStyles((theme) => ({
   },
   pipOpt: {
     marginBottom: "30px",
+  },
+  button: {
+    width: "100%",
+    backgroundColor: "green",
+    "&:hover": {
+      backgroundColor: "darkgreen",
+    },
   },
 }));
 
@@ -30,6 +38,15 @@ export default function PipelineSelection() {
             <PipelineOption option={option} />
           </div>
         ))}
+      <Button
+        component={Link}
+        to="/newpipeline"
+        variant="contained"
+        color="primary"
+        className={classes.button}
+      >
+        Create new pipeline
+      </Button>
     </Container>
   );
 }

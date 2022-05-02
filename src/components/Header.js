@@ -32,6 +32,13 @@ export default function Header({ children }) {
           <Link to="/" className={classes.home}>
             <Typography variant="h6">{children}</Typography>
           </Link>
+          <Button
+            color="inherit"
+            component={Link}
+            to="/login"
+          >
+            Login
+          </Button>
           <Button onClick={toggleTheme} color="inherit">
             Theme
           </Button>

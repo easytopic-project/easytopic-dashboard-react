@@ -17,43 +17,61 @@ import {
 } from "./pages";
 import PipelineResult from "./pages/Pipeline/PipelineResult";
 import ModulesContextProvider from "./contexts/ModulesContext";
+import Login from "./pages/Login";
+import PrivateRoute from "./components/PrivateRoute";
+import LoginContextProvider from "./contexts/LoginContext";
+import NewPipeline from "./pages/NewPipeline";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   return (
     <Router>
-      <SnackbarProvider
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-      >
-        <GlobalContextProvider>
-          <JobsContextProvider>
-            <ModulesContextProvider>
-              <Theme>
-                <CssBaseline />
-                <div className="App">
-                  <Header>Easytopic</Header>
-                  <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route
-                      exact
-                      path="/pipelines"
-                      component={PipelineSelection}
-                    />
-                    <Route path="/pipelines/:id" component={PipelineForm} />
-                    <Route exact path="/jobs" component={Jobs} />
-                    <Route path="/jobs/:id" component={PipelineResult} />
-                    <Route path="/about" component={About} />
-                    <Route path="/modules" component={Modules} />
-                    <Route path="*" component={NotFound} />
-                  </Switch>
-                </div>
-              </Theme>
-            </ModulesContextProvider>
-          </JobsContextProvider>
-        </GlobalContextProvider>
-      </SnackbarProvider>
+      <DndProvider backend={HTML5Backend}>
+        <SnackbarProvider
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+        >
+          <GlobalContextProvider>
+            <LoginContextProvider>
+              <JobsContextProvider>
+                <ModulesContextProvider>
+                  <Theme>
+                    <CssBaseline />
+                    <div className="App">
+                      <Header>M2P</Header>
+                      <Switch>
+                        <Route exact path="/" component={Home} />
+                        <PrivateRoute
+                          exact
+                          path="/pipelines"
+                          component={PipelineSelection}
+                        />
+                        <PrivateRoute
+                          path="/pipelines/:id"
+                          component={PipelineForm}
+                        />
+                        <PrivateRoute exact path="/jobs" component={Jobs} />
+                        <PrivateRoute
+                          path="/jobs/:id"
+                          component={PipelineResult}
+                        />
+                        <Route path="/about" component={About} />
+                        <PrivateRoute path="/modules" component={Modules} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/newpipeline" component={NewPipeline} />
+                        <Route path="*" component={NotFound} />
+                      </Switch>
+                    </div>
+                  </Theme>
+                </ModulesContextProvider>
+              </JobsContextProvider>
+            </LoginContextProvider>
+          </GlobalContextProvider>
+        </SnackbarProvider>
+      </DndProvider>
     </Router>
   );
 }

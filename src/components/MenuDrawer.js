@@ -61,7 +61,7 @@ function MenuDrawer() {
             textAlign="center"
             p={1}
           >
-            <Typography variant="h5">Easytopic</Typography>
+            <Typography variant="h5">M2P</Typography>
           </Box>
           <List className={classes.list}>
             <ListItem button component={Link} to={`/pipelines`}>
