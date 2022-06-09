@@ -7,17 +7,25 @@ export default function NewPipelineContextProvider({ children }) {
   const [newPipeline, setNewPipeline] = useState({
     version: "1.0",
     id: "newPipeline1",
-    name: "New Pipeline Name",
-    description: "New Pipeline Description",
+    name: "",
+    description: "",
     input: [
-      { //example
-        id: "image",
-        name: "Image",
-        description: "The image from the OCR will be generated",
-        type: "file",
-        required: true,
-        accept: ["image/*"],
-      },
+      // { //example
+      //   id: "image",
+      //   name: "Image",
+      //   description: "The image from the OCR will be generated",
+      //   type: "file",
+      //   required: true,
+      //   accept: ["image/*"],
+      // },
+      // { //example
+      //   id: "image2",
+      //   name: "Image",
+      //   description: "The image from the OCR will be generated",
+      //   type: "file",
+      //   required: true,
+      //   accept: ["image/*"],
+      // },
     ],
     output: [
       // { //example
@@ -30,13 +38,13 @@ export default function NewPipelineContextProvider({ children }) {
     ],
     jobs: [
       {
-        id: "ocr-final",
-        queues: [
-          { env: "", default: "" }, //{ env: "OCR_INPUT_QUEUE", default: "ocr-in" },
-          { env: "", default: "" }, //{ env: "OCR_OUTPUT_QUEUE", default: "ocr-out" },
-        ],
-        arguments: {}, //arguments: { file: "image" },
-        output: [], //output: ["ocr"],
+        // id: "ocr-final",
+        // queues: [
+        //   { env: "", default: "" }, //{ env: "OCR_INPUT_QUEUE", default: "ocr-in" },
+        //   { env: "", default: "" }, //{ env: "OCR_OUTPUT_QUEUE", default: "ocr-out" },
+        // ],
+        // arguments: {}, //arguments: { file: "image" },
+        // output: [], //output: ["ocr"],
       },
     ],
   });
