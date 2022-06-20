@@ -95,6 +95,7 @@ function AddInputDialog({ open, onClose }) {
                     value={input}
                     control={<Radio />}
                     label={input}
+                    key={input}
                   />
                 ))}
               </RadioGroup>

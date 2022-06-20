@@ -9,6 +9,7 @@ import {
 import React, { useState } from "react";
 import Draggable from "react-draggable";
 import AddInputDialog from "../components/AddInputDialog";
+import AddStepDialog from "../components/AddStepDialog";
 import DragAreaList from "../components/DragAreaList";
 import DraggableModuleCard from "../components/DraggableModuleCard";
 import GenerateJSONDialog from "../components/GenerateJSONDialog";
@@ -29,6 +30,7 @@ function NewPipeline() {
   const { inputs, newPipeline, setNewPipeline } = useNewPipelineContext();
 
   const [addInputDialogOpen, setAddInputDialogOpen] = useState(false);
+  const [addStepDialogOpen, setAddStepDialogOpen] = useState(false);
   const [pipelineDetailsDialogOpen, setPipelineDetailsDialogOpen] =
     useState(false);
   const [generateJSONDialogOpen, setGenerateJSONDialogOpen] = useState(false);
@@ -39,6 +41,14 @@ function NewPipeline() {
 
   function handleAddInputClose() {
     setAddInputDialogOpen(false);
+  }
+
+  function handleAddStepOpen() {
+    setAddStepDialogOpen(true);
+  }
+
+  function handleAddStepClose() {
+    setAddStepDialogOpen(false);
   }
 
   function handlePipelineDetailsOpen() {
@@ -75,7 +85,9 @@ function NewPipeline() {
       </Button>
       <AddInputDialog open={addInputDialogOpen} onClose={handleAddInputClose} />
 
-      <Button variant="outlined">Add Job</Button>
+      <Button variant="outlined"  onClick={handleAddStepOpen}>Add Step</Button>
+      <AddStepDialog open={addStepDialogOpen} onClose={handleAddStepClose}/>
+
       <Button variant="outlined" onClick={handleGenerateJSONOpen}>
         Generate JSON
       </Button>
