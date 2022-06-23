@@ -85,8 +85,10 @@ function NewPipeline() {
       </Button>
       <AddInputDialog open={addInputDialogOpen} onClose={handleAddInputClose} />
 
-      <Button variant="outlined"  onClick={handleAddStepOpen}>Add Step</Button>
-      <AddStepDialog open={addStepDialogOpen} onClose={handleAddStepClose}/>
+      <Button variant="outlined" onClick={handleAddStepOpen}>
+        Add Step
+      </Button>
+      <AddStepDialog open={addStepDialogOpen} onClose={handleAddStepClose} />
 
       <Button variant="outlined" onClick={handleGenerateJSONOpen}>
         Generate JSON
@@ -95,11 +97,11 @@ function NewPipeline() {
         open={generateJSONDialogOpen}
         onClose={handleGenerateJSONClose}
       />
-       <input
+      <input
         accept="application/json"
         id="load-json"
         type="file"
-        style={{display: "none"}}
+        style={{ display: "none" }}
       />
       <label htmlFor="load-json">
         <Button variant="outlined" component="span">
@@ -112,7 +114,7 @@ function NewPipeline() {
         newPipeline.input.map((input, index) => {
           console.log(input);
           return (
-            <Draggable>
+            <Draggable key={input.id}>
               <Card
                 style={{
                   width: "100px",
