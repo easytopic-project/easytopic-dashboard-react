@@ -112,7 +112,6 @@ function NewPipeline() {
       {/* Inputs */}
       {newPipeline &&
         newPipeline.input.map((input, index) => {
-          console.log(input);
           return (
             <Draggable key={input.id}>
               <Card

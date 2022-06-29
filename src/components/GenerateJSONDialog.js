@@ -4,7 +4,6 @@ import { useNewPipelineContext } from "../contexts/NewPipelineContext";
 
 function GenerateJSONDialog({ open, onClose }) {
   const { newPipeline } = useNewPipelineContext();
-    console.log(JSON.stringify(newPipeline, null, 4));
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>Pipeline Script</DialogTitle>

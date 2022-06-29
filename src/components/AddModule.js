@@ -50,7 +50,7 @@ function AddModule() {
   }
 
   function handleButton() {
-    API.postModule(build, file).then((res) => console.log(res));
+    API.postModule(build, file);
   }
 
   function handleConfigChange(event) {

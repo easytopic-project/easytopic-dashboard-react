@@ -19,18 +19,63 @@ function AddStepDialog({ open, onClose }) {
 
   const [chosenModule, setChosenModule] = useState();
 
-  console.log(modules);
+  const [newModule, setNewModule] = useState({
+    id: "",
+    queues: [
+      { env: "", default: "" },
+      { env: "", default: "" },
+    ],
+    arguments: {},
+    output: [],
+  });
+
+  const [newModuleOutput, setNewModuleOutput] = useState([
+    {
+      id: "",
+      from: "",
+      type: "",
+      name: "",
+      description: "",
+    },
+  ]);
 
   function handleSelectChange(event) {
-    setChosenModule(modules.find((mod) => mod.id === event.target.value));
+    const mod = modules.find((mod) => mod.id === event.target.value);
+    setChosenModule(mod);
+
+    setNewModule({
+      ...newModule,
+      id: mod.id,
+      queues: [
+        { env: "", default: mod.input_queue },
+        { env: "", default: mod.output_queue },
+      ],
+      output: mod.output.map((elem, index) => elem.id),
+    }); //TODO change id
+
+    setNewModuleOutput(
+      mod.output.map((elem) => ({
+        id: elem.id,
+        from: mod.id,
+        type: elem.type,
+        name: "",
+        description: "",
+      }))
+    );
   }
 
-  function handleInputSelectChange() {} //TODO implement function 
+  function handleInputSelectChange(event, input) {
+    setNewModule({
+      ...newModule,
+      arguments: { ...newModule.arguments, [input.id]: event.target.value },
+    });
+  }
 
-  function possibleImages() {
-    const possibilities = newPipeline.input.filter((input, index) =>
-      input.accept.find((elem) => elem.includes("image"))
-    );
+  console.log(newModule);
+  console.log(newModuleOutput);
+
+  function possibleInputs() {
+    const possibilities = newPipeline.input;
     return possibilities;
   }
 
@@ -73,17 +118,19 @@ function AddStepDialog({ open, onClose }) {
               <>
                 <Typography>Inputs</Typography>
                 {chosenModule.input.map((input, index) => (
-                  <FormControl fullWidth>
+                  <FormControl fullWidth key={input.id}>
                     <InputLabel id={"select-input-label-" + index}>
                       {input.id}
                     </InputLabel>
                     <Select
                       labelId={"select-input-label" + index}
                       id={"select-input" + index}
-                      value={""}
-                      onChange={handleInputSelectChange}
+                      value={newModule.arguments[input.id] || ""}
+                      onChange={(event) =>
+                        handleInputSelectChange(event, input)
+                      }
                     >
-                      {possibleImages().map((item) => (
+                      {possibleInputs().map((item) => (
                         <MenuItem key={item.id} value={item.id}>
                           {item.id}
                         </MenuItem>

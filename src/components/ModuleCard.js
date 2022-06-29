@@ -16,11 +16,11 @@ function ModuleCard({ module }) {
   const { admin } = useLoginContext();
 
   function handleStopButton(id) {
-    API.stopModule(id).then((res) => console.log(res));
+    API.stopModule(id);
   }
 
   function handleStartButton(id) {
-    API.startModule(id).then((res) => console.log(res));
+    API.startModule(id);
   }
 
   return (

@@ -66,7 +66,6 @@ function AddInputDialog({ open, onClose }) {
     if (!(newInput.name && newInput.description)) {
       alert("missing fields");
     } else {
-      console.log(newInput);
       setNewPipeline({
         ...newPipeline,
         input: [...newPipeline.input, newInput],
