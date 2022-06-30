@@ -37,15 +37,15 @@ export default function NewPipelineContextProvider({ children }) {
       // },
     ],
     jobs: [
-      {
-        // id: "ocr-final",
-        // queues: [
-        //   { env: "", default: "" }, //{ env: "OCR_INPUT_QUEUE", default: "ocr-in" },
-        //   { env: "", default: "" }, //{ env: "OCR_OUTPUT_QUEUE", default: "ocr-out" },
-        // ],
-        // arguments: {}, //arguments: { file: "image" },
-        // output: [], //output: ["ocr"],
-      },
+      // {
+      //   id: "ocr-final",
+      //   queues: [
+      //     { env: "", default: "" }, //{ env: "OCR_INPUT_QUEUE", default: "ocr-in" },
+      //     { env: "", default: "" }, //{ env: "OCR_OUTPUT_QUEUE", default: "ocr-out" },
+      //   ],
+      //   arguments: {}, //arguments: { file: "image" },
+      //   output: [], //output: ["ocr"],
+      // },
     ],
   });
 

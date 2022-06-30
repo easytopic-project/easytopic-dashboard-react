@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   Dialog,
   DialogTitle,
@@ -56,7 +57,7 @@ function AddStepDialog({ open, onClose }) {
     setNewModuleOutput(
       mod.output.map((elem) => ({
         id: elem.id,
-        from: mod.id,
+        from: mod.id +":" + elem.id,
         type: elem.type,
         name: "",
         description: "",
@@ -71,12 +72,25 @@ function AddStepDialog({ open, onClose }) {
     });
   }
 
-  console.log(newModule);
-  console.log(newModuleOutput);
+  console.log(newPipeline);
 
   function possibleInputs() {
-    const possibilities = newPipeline.input;
+    const possibilities = [...newPipeline.input, ...newPipeline.output];
+    console.log(possibilities);
     return possibilities;
+  }
+
+  function onAddStepClick(event) {
+    if (!(newModule.id && newModule.arguments)) {
+      alert("missing fields");
+    } else {
+      setNewPipeline({
+        ...newPipeline,
+        jobs: [...newPipeline.jobs, newModule],
+        output: [...newPipeline.output, ...newModuleOutput],
+      });
+    }
+    onClose();
   }
 
   return (
@@ -130,16 +144,28 @@ function AddStepDialog({ open, onClose }) {
                         handleInputSelectChange(event, input)
                       }
                     >
-                      {possibleInputs().map((item) => (
-                        <MenuItem key={item.id} value={item.id}>
-                          {item.id}
-                        </MenuItem>
-                      ))}
+                      {possibleInputs().map((item) =>
+                        item.from ? (
+                          <MenuItem key={item.id} value={item.from}>
+                            {item.from}
+                          </MenuItem>
+                        ) : <MenuItem key={item.id} value={item.id}>
+                        {item.id}
+                      </MenuItem>
+                      )}
                     </Select>
                   </FormControl>
                 ))}
               </>
             ) : null}
+            <Button
+              style={{ marginTop: "15px" }}
+              variant="contained"
+              color="primary"
+              onClick={onAddStepClick}
+            >
+              Add Input
+            </Button>
           </Grid>
         </Grid>
       </Container>
