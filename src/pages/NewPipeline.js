@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ButtonGroup,
   Card,
   CardContent,
   Grid,
@@ -17,6 +18,7 @@ import PipelineDetailsDialog from "../components/PipelineDetailsDialog";
 import { useModulesContext } from "../contexts/ModulesContext";
 import { useNewPipelineContext } from "../contexts/NewPipelineContext";
 import Xarrow, { useXarrow, Xwrapper } from "react-xarrows";
+import API from "../api/API";
 
 const inputColors = {
   image: "blue",
@@ -73,51 +75,66 @@ function NewPipeline() {
     setGenerateJSONDialogOpen(false);
   }
 
+  function handleCreatePipeline() {
+    API.postNewPipeline(newPipeline).then((res) => console.log(res));
+  }
+
   function addInput() {}
 
   if (!modules) return null;
   return (
     <Xwrapper>
       <Box m={2}>
-        <Button variant="outlined" onClick={handlePipelineDetailsOpen}>
-          Pipeline Details
-        </Button>
-        <PipelineDetailsDialog
-          open={pipelineDetailsDialogOpen}
-          onClose={handlePipelineDetailsClose}
-        />
-
-        <Button variant="outlined" onClick={handleAddInputOpen}>
-          Add Initial Input
-        </Button>
-        <AddInputDialog
-          open={addInputDialogOpen}
-          onClose={handleAddInputClose}
-        />
-
-        <Button variant="outlined" onClick={handleAddStepOpen}>
-          Add Step
-        </Button>
-        <AddStepDialog open={addStepDialogOpen} onClose={handleAddStepClose} />
-
-        <Button variant="outlined" onClick={handleGenerateJSONOpen}>
-          Generate JSON
-        </Button>
-        <GenerateJSONDialog
-          open={generateJSONDialogOpen}
-          onClose={handleGenerateJSONClose}
-        />
         <input
           accept="application/json"
           id="load-json"
           type="file"
           style={{ display: "none" }}
         />
-        <label htmlFor="load-json">
-          <Button variant="outlined" component="span">
+        <ButtonGroup variant="outlined">
+          <Button variant="outlined" onClick={handlePipelineDetailsOpen}>
+            Pipeline Details
+          </Button>
+          <PipelineDetailsDialog
+            open={pipelineDetailsDialogOpen}
+            onClose={handlePipelineDetailsClose}
+          />
+
+          <Button variant="outlined" onClick={handleAddInputOpen}>
+            Add Initial Input
+          </Button>
+          <AddInputDialog
+            open={addInputDialogOpen}
+            onClose={handleAddInputClose}
+          />
+
+          <Button variant="outlined" onClick={handleAddStepOpen}>
+            Add Step
+          </Button>
+          <AddStepDialog
+            open={addStepDialogOpen}
+            onClose={handleAddStepClose}
+          />
+
+          <Button variant="outlined" onClick={handleGenerateJSONOpen}>
+            Generate JSON
+          </Button>
+          <GenerateJSONDialog
+            open={generateJSONDialogOpen}
+            onClose={handleGenerateJSONClose}
+          />
+          <Button component="label" htmlFor="load-json" variant="outlined">
             Load JSON
           </Button>
-        </label>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleCreatePipeline}
+          >
+            Create Pipeline
+          </Button>
+        </ButtonGroup>
 
         {/* Inputs */}
         {newPipeline &&

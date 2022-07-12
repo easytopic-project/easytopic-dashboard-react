@@ -88,4 +88,8 @@ export default class API {
 
     return await this.axios.post(`${this.urls.module}/start`, { id: id });
   }
+
+  static async postNewPipeline(pipeline) {
+    return await this.axios.post(`${this.urls.pipeline}/new`, pipeline);
+  }
 }

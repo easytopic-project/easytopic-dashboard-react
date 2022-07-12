@@ -72,8 +72,6 @@ function AddStepDialog({ open, onClose }) {
     });
   }
 
-  console.log(newPipeline);
-
   function possibleInputs() {
     const possibilities = [...newPipeline.input, ...newPipeline.output];
     console.log(possibilities);
