@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   Dialog,
   DialogTitle,
@@ -19,14 +20,22 @@ function PipelineDetailsDialog({ open, onClose }) {
     setNewPipeline({ ...newPipeline, description: event.target.value });
   }
 
+  function onCloseWithCheck() {
+    if (!newPipeline.name || !newPipeline.description) {
+      alert("Mising fields");
+    } else {
+      onClose();
+    }
+  }
+
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={onCloseWithCheck} fullWidth maxWidth="sm">
       <DialogTitle>Pipeline Details</DialogTitle>
       <Container>
         <Typography>{`Version: ${newPipeline.version}`}</Typography>
         <Typography>{`ID: ${newPipeline.id}`}</Typography>
         <TextField
-        fullWidth
+          fullWidth
           value={newPipeline.name}
           style={{ display: "block", marginBottom: "15px", marginTop: "15px" }}
           label="Name"
@@ -34,13 +43,21 @@ function PipelineDetailsDialog({ open, onClose }) {
           required
         />
         <TextField
-        fullWidth
+          fullWidth
           value={newPipeline.description}
           style={{ display: "block", marginBottom: "15px" }}
           label="Description"
           onChange={onDescriptionChange}
           required
         />
+        <Button
+          style={{ margin: "15px 15px 15px 85%"}}
+          variant="contained"
+          color="primary"
+          onClick={onCloseWithCheck}
+        >
+          Ok
+        </Button>
       </Container>
     </Dialog>
   );

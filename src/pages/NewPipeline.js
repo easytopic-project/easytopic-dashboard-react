@@ -36,7 +36,7 @@ function NewPipeline() {
   const [addInputDialogOpen, setAddInputDialogOpen] = useState(false);
   const [addStepDialogOpen, setAddStepDialogOpen] = useState(false);
   const [pipelineDetailsDialogOpen, setPipelineDetailsDialogOpen] =
-    useState(false);
+    useState(true);
   const [generateJSONDialogOpen, setGenerateJSONDialogOpen] = useState(false);
 
   useEffect(() => {
