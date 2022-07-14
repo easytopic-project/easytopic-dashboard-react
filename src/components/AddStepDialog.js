@@ -52,6 +52,7 @@ function AddStepDialog({ open, onClose }) {
         { env: "", default: mod.input_queue },
         { env: "", default: mod.output_queue },
       ],
+      arguments: {},
       output: mod.output.map((elem, index) => elem.id),
     }); //TODO change id
 

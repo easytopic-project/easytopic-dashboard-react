@@ -76,7 +76,7 @@ function NewPipeline() {
   }
 
   function handleCreatePipeline() {
-    API.postNewPipeline(newPipeline).then((res) => console.log(res));
+    API.postNewPipeline(newPipeline).then((res) => alert(res));
   }
 
   function addInput() {}
