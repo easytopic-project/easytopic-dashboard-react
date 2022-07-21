@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const newPipelineContext = createContext();
 
@@ -49,8 +49,40 @@ export default function NewPipelineContextProvider({ children }) {
     ],
   });
 
+  useEffect(() => {
+    newPipeline.jobs.forEach((job) => {
+      if (!job.arguments) return;
+
+      const agregJobs = Object.values(job.arguments).reduce((acc, val) => {
+        if (val.includes(":")) return [...acc, val.split(":")[0]];
+      }, []);
+
+      if (agregJobs && agregJobs.length >= 2) {
+        const agregJobsIndexes = newPipeline.jobs.map((job, index) =>
+          agregJobs.includes(job.id) ? index : null
+        );
+
+        const agregJobsArr = newPipeline.jobs.filter((job) =>
+          agregJobs.includes(job.id)
+        );
+        const agregJobsObj = {
+          id: "aggregation",
+          type: "aggregation",
+          jobs: agregJobsArr,
+        };
+        
+        setNewPipeline({
+          ...newPipeline,
+          jobs: [...newPipeline.jobs, agregJobsObj],
+        });
+      }
+    });
+  }, [newPipeline]);
+
   return (
-    <newPipelineContext.Provider value={{ inputs, newPipeline, setNewPipeline }}>
+    <newPipelineContext.Provider
+      value={{ inputs, newPipeline, setNewPipeline }}
+    >
       {children}
     </newPipelineContext.Provider>
   );

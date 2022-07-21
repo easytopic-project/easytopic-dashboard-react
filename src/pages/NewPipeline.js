@@ -161,6 +161,7 @@ function NewPipeline() {
         {/* Modules */}
         {newPipeline &&
           newPipeline.jobs.map((job, index) => {
+            if (job.type) return;
             return (
               <Draggable
                 key={job.id}
@@ -216,6 +217,7 @@ function NewPipeline() {
           })}
         {/* Arrows */}
         {newPipeline.jobs.map((job, index) => {
+          if (job.type) return;
           return Object.entries(job.arguments).map((arg) => {
             return (
               <Xarrow
