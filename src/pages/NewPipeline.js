@@ -161,72 +161,143 @@ function NewPipeline() {
         {/* Modules */}
         {newPipeline &&
           newPipeline.jobs.map((job, index) => {
-            if (job.type) return null;
-            return (
-              <Draggable
-                key={job.id}
-                onDrag={updateXarrow}
-                onStop={updateXarrow}
-              >
-                <Card
-                  style={{
-                    width: "200px",
-                    //backgroundColor: inputColors[input.accept[0].split("/")[0]],
-                  }}
+            if (job.type && job.type == "aggregation") {
+              return job.jobs.map((agregJob, i) => {
+                return (
+                  <Draggable
+                    key={agregJob.id}
+                    onDrag={updateXarrow}
+                    onStop={updateXarrow}
+                  >
+                    <Card
+                      style={{
+                        width: "200px",
+                        //backgroundColor: inputColors[input.accept[0].split("/")[0]],
+                      }}
+                    >
+                      <CardContent>
+                        <Typography variant="h5">
+                          {agregJob.id.toUpperCase()}
+                        </Typography>
+                        <Typography>---- Inputs ----</Typography>
+                        {Object.entries(agregJob.arguments).map(
+                          (
+                            arg //TODO Talvez mapear o modulo original e separar a arrow
+                          ) => (
+                            <Typography
+                              style={{
+                                backgroundColor: "green",
+                                borderRadius: "10px",
+                                margin: "10px",
+                                textAlign: "center",
+                              }}
+                              key={arg[0] + arg[1]}
+                              id={agregJob.id + arg[0]}
+                            >
+                              {arg[0]}
+                            </Typography>
+                          )
+                        )}
+                        <Typography>---- Outputs ----</Typography>
+                        {agregJob.output.map((out) => (
+                          <Typography
+                            style={{
+                              backgroundColor: "red",
+                              borderRadius: "10px",
+                              margin: "10px",
+                              textAlign: "center",
+                            }}
+                            key={agregJob.id + ":" + out}
+                            id={agregJob.id + ":" + out}
+                          >
+                            {out}
+                          </Typography>
+                        ))}
+                      </CardContent>
+                    </Card>
+                  </Draggable>
+                );
+              });
+            } else
+              return (
+                <Draggable
+                  key={job.id}
+                  onDrag={updateXarrow}
+                  onStop={updateXarrow}
                 >
-                  <CardContent>
-                    <Typography variant="h5">{job.id.toUpperCase()}</Typography>
-                    <Typography>---- Inputs ----</Typography>
-                    {Object.entries(job.arguments).map(
-                      (
-                        arg //TODO Talvez mapear o modulo original e separar a arrow
-                      ) => (
+                  <Card
+                    style={{
+                      width: "200px",
+                      //backgroundColor: inputColors[input.accept[0].split("/")[0]],
+                    }}
+                  >
+                    <CardContent>
+                      <Typography variant="h5">
+                        {job.id.toUpperCase()}
+                      </Typography>
+                      <Typography>---- Inputs ----</Typography>
+                      {Object.entries(job.arguments).map(
+                        (
+                          arg //TODO Talvez mapear o modulo original e separar a arrow
+                        ) => (
+                          <Typography
+                            style={{
+                              backgroundColor: "green",
+                              borderRadius: "10px",
+                              margin: "10px",
+                              textAlign: "center",
+                            }}
+                            key={arg[0] + arg[1]}
+                            id={job.id + arg[0]}
+                          >
+                            {arg[0]}
+                          </Typography>
+                        )
+                      )}
+                      <Typography>---- Outputs ----</Typography>
+                      {job.output.map((out) => (
                         <Typography
                           style={{
-                            backgroundColor: "green",
+                            backgroundColor: "red",
                             borderRadius: "10px",
                             margin: "10px",
                             textAlign: "center",
                           }}
-                          key={arg[0] + arg[1]}
-                          id={job.id + arg[0]}
+                          key={job.id + ":" + out}
+                          id={job.id + ":" + out}
                         >
-                          {arg[0]}
+                          {out}
                         </Typography>
-                      )
-                    )}
-                    <Typography>---- Outputs ----</Typography>
-                    {job.output.map((out) => (
-                      <Typography
-                        style={{
-                          backgroundColor: "red",
-                          borderRadius: "10px",
-                          margin: "10px",
-                          textAlign: "center",
-                        }}
-                        key={job.id + ":" + out}
-                        id={job.id + ":" + out}
-                      >
-                        {out}
-                      </Typography>
-                    ))}
-                  </CardContent>
-                </Card>
-              </Draggable>
-            );
+                      ))}
+                    </CardContent>
+                  </Card>
+                </Draggable>
+              );
           })}
         {/* Arrows */}
         {newPipeline.jobs.map((job, index) => {
-          if (job.type) return null;
-          return Object.entries(job.arguments).map((arg) => {
-            return (
-              <Xarrow
-                key={arg[1] + arg[0]}
-                start={arg[1]}
-                end={job.id + arg[0]}
-              />
-            );
-          });
+          if (job.type && job.type == "aggregation") {
+            return job.jobs.map((agregJob, i) => {
+              return Object.entries(agregJob.arguments).map((arg) => {
+                return (
+                  <Xarrow
+                    key={arg[1] + arg[0]}
+                    start={arg[1]}
+                    end={agregJob.id + arg[0]}
+                  />
+                );
+              });
+            });
+          } else
+            return Object.entries(job.arguments).map((arg) => {
+              return (
+                <Xarrow
+                  key={arg[1] + arg[0]}
+                  start={arg[1]}
+                  end={job.id + arg[0]}
+                />
+              );
+            });
         })}
       </Box>
     </Xwrapper>
