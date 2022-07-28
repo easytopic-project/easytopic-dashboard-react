@@ -4,6 +4,7 @@ const newPipelineContext = createContext();
 
 export default function NewPipelineContextProvider({ children }) {
   const [inputs, setInputs] = useState(["image", "text", "video", "audio"]);
+  const [agreggated, setAgreggated] = useState([]);
   const [newPipeline, setNewPipeline] = useState({
     version: "1.0",
     id: "newPipeline1",
@@ -50,14 +51,16 @@ export default function NewPipelineContextProvider({ children }) {
   });
 
   useEffect(() => {
-    newPipeline.jobs.forEach((job) => {
+    newPipeline.jobs.forEach((job, index) => {
       if (!job.arguments) return;
+      if (agreggated.includes(job.id)) return;
 
       const agregJobs = Object.values(job.arguments).reduce((acc, val) => {
         if (val.includes(":")) return [...acc, val.split(":")[0]];
       }, []);
 
       if (agregJobs && agregJobs.length >= 2) {
+        setAgreggated([...agreggated, job.id]);
         const agregJobsIndexes = newPipeline.jobs.map((job, index) =>
           agregJobs.includes(job.id) ? index : null
         );
@@ -70,10 +73,16 @@ export default function NewPipelineContextProvider({ children }) {
           type: "aggregation",
           jobs: agregJobsArr,
         };
-        
+
+        let newJobsList = [...newPipeline.jobs]
+        newJobsList.splice(index, 0, agregJobsObj);
+        newJobsList = newJobsList.filter(
+          (job) => !(agregJobs.includes(job.id))
+        );
+
         setNewPipeline({
           ...newPipeline,
-          jobs: [...newPipeline.jobs, agregJobsObj],
+          jobs: newJobsList,
         });
       }
     });
