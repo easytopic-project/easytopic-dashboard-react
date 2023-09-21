@@ -12,14 +12,13 @@ import {
 import React from "react";
 
 function NewPipelineInputDialog({ input, open, onClose }) {
-    console.log(input);
   if (!input) return null;
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>input title</DialogTitle>
 
       <Container>
-          configs here
+        configs here
         {/* <Grid container>
           <Grid item xs={6}>
             <List subheader={<ListSubheader>Arguments</ListSubheader>}>
