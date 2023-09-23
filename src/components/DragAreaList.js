@@ -18,7 +18,6 @@ function DragAreaList({ accept }) {
   }));
 
   function addCard(item) {
-    console.log(item);
     setModules((modules) => [...modules, item.name]);
     setCurrModule(item.name);
     setOpen(true);
