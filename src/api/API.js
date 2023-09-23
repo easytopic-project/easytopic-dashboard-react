@@ -11,8 +11,8 @@ export default class API {
 
   static urls = {
     fileServer: `${process.env.REACT_APP_FILE_SERVER_URL}/files`,
-    pipeline: `${process.env.REACT_APP_API_URL}/pipeline`,
-    module: `${process.env.REACT_APP_API_URL}/module`,
+    pipeline: `${process.env.REACT_APP_API_URL}/api/pipeline`,
+    module: `${process.env.REACT_APP_API_URL}/api/module`,
   };
   // Definir metodos para conversar com a api
 
