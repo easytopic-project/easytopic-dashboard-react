@@ -57,7 +57,7 @@ function Home() {
                   display="inline"
                 >
                   {" "}
-                  pipelines
+                  workflows
                 </Typography>
               </Tooltip>
             </Typography>
@@ -71,7 +71,7 @@ function Home() {
                 component={Link}
                 to="/pipelines"
               >
-                Select a pipeline
+                Select a workflow
               </Button>
             </Grid>
           </Grid>

@@ -44,16 +44,14 @@ function JobSteps({ jobData, pipeline }) {
                   ? job.jobs.map((insideJob) => (
                       <ListItem key={insideJob.id}>
                         <ListItemIcon>
-                          {jobData.status === "done" ? (
+                          {jobData.jobStatus[insideJob.id].finishAt  ? (
                             <CheckCircleIcon style={{ color: "green" }} />
-                          ) : null}
-                          {jobData.status === "waiting" ? (
-                            <CircularProgress
-                              size="1.5rem"
-                              thickness={8}
-                              color="secondary"
-                            />
-                          ) : null}
+                          ) : 
+                          <CircularProgress
+                          size="1.5rem"
+                          thickness={8}
+                          color="secondary"
+                        />}
                         </ListItemIcon>
 
                         <ListItemText
@@ -80,16 +78,14 @@ function JobSteps({ jobData, pipeline }) {
                   : null}
                 <ListItem key={job.id}>
                   <ListItemIcon>
-                    {jobData.status === "done" ? (
+                    {jobData.jobStatus[job.id].finishAt  ? (
                       <CheckCircleIcon style={{ color: "green" }} />
-                    ) : null}
-                    {jobData.status === "waiting" ? (
-                      <CircularProgress
+                    ) : 
+                    <CircularProgress
                         size="1.5rem"
                         thickness={8}
                         color="secondary"
-                      />
-                    ) : null}
+                      /> }
                   </ListItemIcon>
 
                   <ListItemText

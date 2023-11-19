@@ -65,13 +65,19 @@ function MenuDrawer() {
           </Box>
           <List className={classes.list}>
             <ListItem button component={Link} to={`/pipelines`}>
-              <ListItemText>Pipelines</ListItemText>
+              <ListItemText>Workflows</ListItemText>
+            </ListItem>
+            <ListItem button component={Link} to={`/newpipeline`}>
+              <ListItemText>Create New Workflow</ListItemText>
             </ListItem>
             <ListItem button component={Link} to={`/jobs`}>
               <ListItemText>My Jobs</ListItemText>
             </ListItem>
             <ListItem button component={Link} to={`/modules`}>
               <ListItemText>Modules</ListItemText>
+            </ListItem>
+            <ListItem button component="a" href={`/api/docs`}>
+              <ListItemText>API Docs</ListItemText>
             </ListItem>
           </List>
           <Box textAlign="center" m={3}>

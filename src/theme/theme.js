@@ -11,6 +11,9 @@ export default function Theme({ children }) {
   const { darkMode } = useGlobalContext();
 
   const theme = createMuiTheme({
+    "@media print": {
+      backgroundColor: "#0f4c75",
+    },
     palette: {
       type: darkMode ? "dark" : "light",
       primary: {

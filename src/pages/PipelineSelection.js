@@ -30,7 +30,7 @@ export default function PipelineSelection() {
   return (
     <Container maxWidth="sm" className={classes.container}>
       <Typography variant="h4" className={classes.title}>
-        Select your pipeline
+        Select your workflow
       </Typography>
       {pipelineOptions &&
         pipelineOptions.map((option) => (
@@ -45,7 +45,7 @@ export default function PipelineSelection() {
         color="primary"
         className={classes.button}
       >
-        Create new pipeline
+        Create new workflow
       </Button>
     </Container>
   );

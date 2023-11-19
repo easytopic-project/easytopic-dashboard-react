@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Draggable from "react-draggable";
 import AddInputDialog from "../components/AddInputDialog";
 import AddStepDialog from "../components/AddStepDialog";
@@ -36,8 +37,9 @@ function NewPipeline() {
   const [addInputDialogOpen, setAddInputDialogOpen] = useState(false);
   const [addStepDialogOpen, setAddStepDialogOpen] = useState(false);
   const [pipelineDetailsDialogOpen, setPipelineDetailsDialogOpen] =
-    useState(true);
+    useState(false);
   const [generateJSONDialogOpen, setGenerateJSONDialogOpen] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     updateXarrow();
@@ -79,6 +81,21 @@ function NewPipeline() {
     API.postNewPipeline(newPipeline).then((res) => alert(res));
   }
 
+  async function handleLoadJSON(event) {
+    event.target.files[0]
+
+    const reader = new FileReader()
+    reader.onload = async (event) => { 
+      const text = (event.target.result)
+      console.log(text)
+      let newPipe = JSON.parse(text);
+      API.postNewPipeline(newPipe).then((res) => alert(res));
+      history.push('/pipelines')
+    };
+    reader.readAsText(event.target.files[0])
+
+  }
+
   function addInput() {}
 
   if (!modules) return null;
@@ -90,6 +107,7 @@ function NewPipeline() {
           id="load-json"
           type="file"
           style={{ display: "none" }}
+          onChange={handleLoadJSON}
         />
         <ButtonGroup variant="outlined">
           <Button variant="outlined" onClick={handlePipelineDetailsOpen}>
@@ -132,10 +150,10 @@ function NewPipeline() {
             color="primary"
             onClick={handleCreatePipeline}
           >
-            Create Pipeline
+            Create Workflow
           </Button>
         </ButtonGroup>
-
+        <Box display="flex" alignItems="start">
         {/* Inputs */}
         {newPipeline &&
           newPipeline.input.map((input, index) => {
@@ -299,6 +317,7 @@ function NewPipeline() {
               );
             });
         })}
+        </Box>
       </Box>
     </Xwrapper>
   );

@@ -22,7 +22,7 @@ function PipelineDetailsDialog({ open, onClose }) {
 
   function onCloseWithCheck() {
     if (!newPipeline.name || !newPipeline.description) {
-      alert("Mising fields");
+      // alert("Missing fields");
     } else {
       onClose();
     }
@@ -30,7 +30,7 @@ function PipelineDetailsDialog({ open, onClose }) {
 
   return (
     <Dialog open={open} onClose={onCloseWithCheck} fullWidth maxWidth="sm">
-      <DialogTitle>Pipeline Details</DialogTitle>
+      <DialogTitle>Workflow Details</DialogTitle>
       <Container>
         <Typography>{`Version: ${newPipeline.version}`}</Typography>
         <Typography>{`ID: ${newPipeline.id}`}</Typography>
